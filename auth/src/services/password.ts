@@ -1,7 +1,7 @@
 import {scrypt, randomBytes} from 'crypto'
 import {promisify} from 'util'
 
-
+// Make scrypt usable with async await
 const scryptAsync = promisify(scrypt)
 
 export class Password {
