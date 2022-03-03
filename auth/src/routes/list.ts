@@ -16,7 +16,7 @@ router.get(
    }
   
 
-   res.send(user);
+   return res.send(user);
   }
 );
 
