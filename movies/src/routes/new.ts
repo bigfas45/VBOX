@@ -3,6 +3,7 @@ import {
   requireAuth,
   requireAuthAdmin,
   BadRequestError,
+  validateRequest
 } from '@vboxdev/common';
 import formidable from 'formidable';
 import _ from 'lodash';
@@ -10,80 +11,89 @@ import fs from 'fs';
 import { Movies } from '../models/movies';
 import { User } from '../models/users';
 import { Category } from '../models/category';
-import bodyParser from 'body-parser';
+import { body } from 'express-validator';
+import { UploadedFile } from 'express-fileupload';
+import AWS from 'aws-sdk';
+
 
 const router = express.Router();
+
+const spacesEndpoint = new AWS.Endpoint('fra1.digitaloceanspaces.com');
+  const s3 = new AWS.S3({
+      endpoint: spacesEndpoint,
+      accessKeyId: '6HWP557BFFXFDOU5OTHN',
+      secretAccessKey: 'KmQE0RZilHFIlcQG1rljognFwEsQ3vxgK+lMM3riIHQ'
+  });
+
+router.post(
+  '/api/movies/upload',
+  requireAuth,
+  requireAuthAdmin,
+  async (req: Request, res: Response) => {
+    // get user model doc
+    
+    const movieFile = req.files && req.files.movie as UploadedFile;
+console.log(movieFile)
+    // const params = {
+    //   Body: movieFile?.data,
+    //   Bucket: "tets",
+    //   Key: movieFile?.name,
+    //   ACL: "public-read",
+    //   ContentType: "application/json"
+    // };
+
+  }
+);
 
 router.post(
   '/api/movies/',
   requireAuth,
   requireAuthAdmin,
+  [
+    body('title').not().isEmpty().withMessage('Title is required'),
+    body('description').not().isEmpty().withMessage('description is required'),
+    body('director').not().isEmpty().withMessage('director is required'),
+    body('cast').not().isEmpty().withMessage('cast is required'),
+    body('category').not().isEmpty().withMessage('category is required'),
+    body('rate').not().isEmpty().withMessage('rate is required'),
+    body('url').not().isEmpty().withMessage('url is required'),
 
+
+  ],
+  validateRequest,
   async (req: Request, res: Response) => {
     // get user model doc
+    const { title, description, director , cast, category, rate, url} = req.body;
     const user = await User.findById(req.currentUser!.id);
     if (!user) {
       throw new BadRequestError(
         'User cannot create a movie because user not found.'
       );
     }
+    console.log(user);
 
-    let form = new formidable.IncomingForm();
-    // @ts-ignore
-    form.maxFileSize = 1000 * 1024 * 10024;
-    // @ts-ignore
-    form.keepExtensions = true;
-    form.parse(req, async (err, fields, files) => {
-      if (err) {
-        return res.status(400).json({ error: 'File could not be uploaded' });
-      }
-      // check for all fields
-      const { title, description, category, cast, rate } = fields;
-
-      if (!title || !description || !category || !cast || !rate) {
-        return res.status(400).json({
-          error: ' All fields are required ',
-        });
-      }
-
-      // get category model doc
-
-      const cat = await Category.findById(category);
-      if (!cat) {
-        return res.status(400).json({
-          error: 'Category ID provided is invalid or does not exist!!!',
-        });
-      }
-
-      let movies = new Movies(fields);
-      if (files.file) {
-        console.log('FILES PHOTO', files.file);
-        // @ts-ignore
-        movies.file.data = fs.readFileSync(files.file.path, 'utf8');
-        // @ts-ignore
-        movies.file.contentType = files.file.type;
-        // @ts-ignore
-        movies.file.path = files.file.path;
-        // @ts-ignore
-        movies.file.name = files.file.name;
-      } else {
-        return res.status(400).json({
-          error: ' File fields are required ',
-        });
-      }
-
-      // insert user model doc
-      movies.user = user;
-      // insert category model doc
-      movies.category = cat;
-
-      movies.save((err, result) => {
-        if (err) {
-          return res.status(400).json(err);
-        }
-        res.json(result);
+    const cat = await Category.findById(category);
+    if (!cat) {
+      return res.status(400).json({
+        error: 'Category ID provided is invalid or does not exist!!!',
       });
+    }
+
+    const movies = Movies.build({
+      title,
+      description,
+      director,
+      cast,
+      category: cat,
+      rate,
+      url,
+      user
     });
+
+    await movies.save();
+
+    res.send(movies)
+
   }
 );
 

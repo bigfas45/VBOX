@@ -5,15 +5,16 @@ import { CategoryDoc } from './category';
 // An interface that describe the properties that are required to create a new User
 
 interface MoviesAttrs {
-  title: string;
+  title: any;
   description: string;
   category: CategoryDoc;
   user: UserDoc;
   director: string;
   cast: string;
-  rate: string;
-  file: Buffer;
+  rate: number;
+  url: string;
 }
+
 
 interface MoviesModel extends mongoose.Model<MoviesDoc> {
   build(attrs: MoviesAttrs): MoviesDoc;
@@ -28,8 +29,8 @@ interface MoviesDoc extends mongoose.Document {
   user: UserDoc;
   director: string;
   cast: string;
-  rate: string;
-  file: Buffer;
+  rate: number;
+  url: string;
 }
 
 const MoviesSchema = new mongoose.Schema(
@@ -61,7 +62,7 @@ const MoviesSchema = new mongoose.Schema(
       maxlength: 10000,
     },
     rate: {
-      type: String,
+      type: Number,
       required: true,
     },
     director: {
@@ -69,11 +70,9 @@ const MoviesSchema = new mongoose.Schema(
       required: true,
     },
 
-    file: {
-      data: Buffer,
-      contentType: String,
-      path: String,
-      name: String,
+    url: {
+      type: String,
+      required: true,
     },
   },
   {

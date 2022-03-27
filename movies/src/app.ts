@@ -14,6 +14,9 @@ var fileupload = require('express-fileupload');
 
 import cookieSession from 'cookie-session';
 const app = express();
+app.use(fileupload({
+  useTempFiles: false,
+}));
 app.set('trust proxy', true);
 app.use(json());
 app.use(express.urlencoded({ extended: true }));
