@@ -25,7 +25,7 @@ export default function Waitlist() {
         }
         try {
             setLoading(true)
-            const response = await axios.post('https://www.vbox.media/api/users/int', {
+            const response = await axios.post('https://www.vbox.com.ng/api/users/int', {
                 email: value
             })
             if (response.data.success) {
