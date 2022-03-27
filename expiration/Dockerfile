@@ -9,3 +9,4 @@ RUN npm install --only=prod
 COPY ./ ./
  
 CMD ["npm", "start"]
+
