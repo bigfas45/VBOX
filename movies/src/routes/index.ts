@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/api/movies/upload', async (req: Request, res: Response) => {
   console.log(req.files);
   
+  
 
   res.json(req.files);
   
