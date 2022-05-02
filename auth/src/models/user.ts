@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Password } from '../services/password';
-import { VerificationStatus } from '@vboxdev/common';
+import { UserStatus, UserType } from '@vboxdev/common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // An interface that describe the properties that are required to create a new User
@@ -10,8 +10,8 @@ interface UserAttrs {
   telephone: string;
   email: string;
   password: string;
-  userType?: number;
-  status?: number;
+  userType?: UserType;
+  status?: UserStatus;
 }
 
 
@@ -30,8 +30,8 @@ interface UserAttrs {
   telephone: string;
   email: string;
   password: string;
-  userType?: number;
-  status?: number;
+  userType?: UserType;
+  status?: UserStatus;
 }
 
 const userSchema = new mongoose.Schema(
@@ -52,12 +52,16 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     userType: {
-      type: Number,
-      default: 0,
+      type: String,
+      required: true,
+      enum: Object.values(UserType),
+      default: UserType.Customer,
     },
     status: {
-      type: Number,
-      default: 1,
+      type: String,
+      required: true,
+      enum: Object.values(UserStatus),
+      default: UserStatus.Active,
     },
 
   },

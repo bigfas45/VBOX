@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { VerificationStatus } from '@vboxdev/common';
+import { UserStatus, UserType } from '@vboxdev/common';
 
 interface UserAttrs {
   id: string;
   email: string;
   username: string;
-  userType: number;
+  userType: UserType;
   telephone: number;
-  status: number;
+  status: UserStatus;
 }
 
 export interface UserDoc extends mongoose.Document {
@@ -16,9 +16,9 @@ export interface UserDoc extends mongoose.Document {
   version: number;
   email: string;
   username: string;
-  userType: number;
+  userType: UserType;
   telephone: number;
-  status: number;
+  status: UserStatus;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -40,14 +40,18 @@ const UserSchema = new mongoose.Schema(
     },
 
     userType: {
-      type: Number,
-      default: 0,
+      type: String,
+      required: true,
+      enum: Object.values(UserType),
+      default: UserType.Customer,
     },
-
+  
 
     status: {
-      type: Number,
-      default: 1,
+      type: String,
+      required: true,
+      enum: Object.values(UserStatus),
+      default: UserStatus.Active,
     },
 
   },

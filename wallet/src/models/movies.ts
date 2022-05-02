@@ -1,11 +1,9 @@
 import mongoose from 'mongoose';
-import { UserDoc } from './users';
-import {MovieStatus} from '@vboxdev/common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { UserStatus, UserType, MovieStatus } from '@vboxdev/common';
 
-// An interface that describe the properties that are required to create a new User
-
-interface MoviesAttrs {
+interface MovieAttrs {
+  id: string;
   title: string;
   genre: string;
   language: string;
@@ -18,21 +16,16 @@ interface MoviesAttrs {
   trailer: string
   cast: [];
   description: string;
-  user: UserDoc;
+  user: string;
   director: [];
   Urating: number;
   url: string;
   status: MovieStatus;
+ 
 }
 
-
-interface MoviesModel extends mongoose.Model<MoviesDoc> {
-  build(attrs: MoviesAttrs): MoviesDoc;
-}
-
-// An interface that describes the properties that a user document has
-
-interface MoviesDoc extends mongoose.Document {
+export interface MovieDoc extends mongoose.Document {
+  id: string;
   version: number;
   title: string;
   genre: string;
@@ -46,14 +39,20 @@ interface MoviesDoc extends mongoose.Document {
   trailer: string
   cast: [];
   description: string;
-  user: UserDoc;
+  user: string;
   director: [];
   Urating: number;
   url: string;
-  status: MovieStatus
+  status: MovieStatus;
+ 
 }
 
-const MoviesSchema = new mongoose.Schema(
+interface MovieModel extends mongoose.Model<MovieDoc> {
+  build(attrs: MovieAttrs): MovieDoc;
+  findByEvent(event: { id: string; version: number }): Promise<MovieDoc | null>;
+}
+
+const MovieSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -127,8 +126,7 @@ const MoviesSchema = new mongoose.Schema(
     },
 
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
     },
 
     Urating: {
@@ -154,13 +152,40 @@ const MoviesSchema = new mongoose.Schema(
   }
 );
 
-MoviesSchema.set('versionKey', 'version');
-MoviesSchema.plugin(updateIfCurrentPlugin);
 
-MoviesSchema.statics.build = (attrs: MoviesAttrs) => {
-  return new Movies(attrs);
+MovieSchema.set('versionKey', 'version');
+MovieSchema.plugin(updateIfCurrentPlugin);
+
+MovieSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+  return Movie.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
+MovieSchema.statics.build = (attrs: MovieAttrs) => {
+  return new Movie({
+    _id: attrs.id,
+    title: attrs.title,
+    genre: attrs.genre,
+    language: attrs.language,
+    subtitle: attrs.subtitle,
+    year: attrs.year,
+    length: attrs.length,
+    sexual: attrs.sexual,
+    Mrating: attrs.Mrating,
+    blockbuster: attrs.blockbuster,
+    trailer: attrs.trailer,
+    cast: attrs.cast,
+    description: attrs.description,
+    user: attrs.user,
+    director: attrs.director,
+    Urating: attrs.Urating,
+    url: attrs.url,
+    status: attrs.status
+  
+  });
 };
 
-const Movies = mongoose.model<MoviesDoc, MoviesModel>('Movies', MoviesSchema);
+const Movie = mongoose.model<MovieDoc, MovieModel>('User', MovieSchema);
 
-export { Movies };
+export { Movie };

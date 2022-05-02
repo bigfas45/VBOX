@@ -31,5 +31,12 @@ spec:
                 name:  movies-srv
                 port:
                   number: 3000
+          - path:  /api/wallet/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name:  wallet-srv
+                port:
+                  number: 3000
                   
                   

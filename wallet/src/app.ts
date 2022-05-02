@@ -3,9 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import { errorHandler, NotFoundError, currentUser } from '@vboxdev/common';
 import { IndexrRouter } from './routes/index';
-import { CreateNewRouter } from './routes/new';
 
-var fileupload = require('express-fileupload');
 
 
 import cookieSession from 'cookie-session';
@@ -26,12 +24,12 @@ app.use(
   })
 );
 
-app.use(fileupload());
 
 app.use(currentUser);
 
-app.use(IndexrRouter);
-app.use(CreateNewRouter);
+app.use(IndexrRouter)
+
+
 
 
 app.all('*', async (req, res, next) => {

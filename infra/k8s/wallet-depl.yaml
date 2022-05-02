@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wallet-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallet
+  template:
+    metadata:
+      labels:
+        app: wallet
+    spec:
+      containers:
+        - name: wallet
+          image: vbox45/wallet
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: VBOX
+            - name: MONGO_URI
+              value: 'mongodb://wallet-mongo-srv:27017/wallet'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: SENDGRID
+              valueFrom:
+                secretKeyRef:
+                  name: send-grid-secret
+                  key: SENDGRID
+          
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wallet-srv
+spec:
+  selector:
+    app: wallet
+  ports:
+    - name: wallet
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+      
+      
+      
+      
+      
+      
+      
+      
+      

@@ -35,6 +35,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: vbox45/wallet
+      context: wallet
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: vbox45/vbox
       context: vbox
       docker:

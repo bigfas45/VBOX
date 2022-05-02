@@ -37,7 +37,7 @@ router.post(
   validateRequest,
 
   async (req: Request, res: Response) => {
-    const { email, password, fullname, telephone, userType, rpassword } =
+    const { email, password, fullname, telephone, rpassword } =
       req.body;
 
     let existingUser;
@@ -65,7 +65,6 @@ router.post(
       password,
       username: fullname,
       telephone,
-      userType,
     });
 
     await user.save();
