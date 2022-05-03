@@ -2,15 +2,16 @@ import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { UserCreatedListener } from './events/listeners/user-created-listener';
-
 import { UserUpdatedListener } from './events/listeners/user-updated-listener';
 
 
+import http from 'http';
+
+import {socketConnection} from './helper/socket';
+
+
 const start = async () => {
-
   console.log('Starting.......................')
-
-
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
@@ -20,15 +21,12 @@ const start = async () => {
 if (!process.env.NATS_CLIENT_ID) {
   throw new Error('NATS_CLIENT_ID must be defined');
 }
-
 if (!process.env.NATS_URL) {
   throw new Error('NATS_URL must be defined');
 }
-
 if (!process.env.NATS_CLUSTER_ID) {
   throw new Error('NATS_CLUSTER_ID must be defined');
-  }
-  
+  } 
 
    try {
     await natsWrapper.connect(
@@ -61,8 +59,11 @@ if (!process.env.NATS_CLUSTER_ID) {
     console.error(err);
   }
 
+
+  const server = http.createServer(app);
+socketConnection(server);
  
-  app.listen(3000, () => {
+server.listen(3000, () => {
     console.log('Listening on port 3000!!!!!!!!!!');
   });
 };
