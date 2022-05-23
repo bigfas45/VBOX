@@ -28,7 +28,7 @@ export class MovieCreatedListener extends Listener<MovieCreatedEvent> {
       director,
       Urating,
       url,
-      status
+      status,
     } = data;
     const movie = Movie.build({
       id,
@@ -48,8 +48,7 @@ export class MovieCreatedListener extends Listener<MovieCreatedEvent> {
       director,
       Urating,
       url,
-      status
-    
+      status,
     });
     await movie.save();
 

@@ -21,7 +21,6 @@ interface MovieAttrs {
   Urating: number;
   url: string;
   status: MovieStatus;
- 
 }
 
 export interface MovieDoc extends mongoose.Document {
@@ -44,7 +43,6 @@ export interface MovieDoc extends mongoose.Document {
   Urating: number;
   url: string;
   status: MovieStatus;
- 
 }
 
 interface MovieModel extends mongoose.Model<MovieDoc> {
