@@ -15,6 +15,7 @@ spec:
       containers:
         - name: movies
           image: vbox45/movies
+
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

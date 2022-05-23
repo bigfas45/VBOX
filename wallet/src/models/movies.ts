@@ -10,10 +10,10 @@ interface MovieAttrs {
   subtitle: Boolean;
   year: string;
   length: string;
-  sexual: Boolean
-  Mrating: string
+  sexual: Boolean;
+  Mrating: string;
   blockbuster: Boolean;
-  trailer: string
+  trailer: string;
   cast: [];
   description: string;
   user: string;
@@ -21,7 +21,6 @@ interface MovieAttrs {
   Urating: number;
   url: string;
   status: MovieStatus;
- 
 }
 
 export interface MovieDoc extends mongoose.Document {
@@ -33,10 +32,10 @@ export interface MovieDoc extends mongoose.Document {
   subtitle: Boolean;
   year: string;
   length: string;
-  sexual: Boolean
-  Mrating: string
+  sexual: Boolean;
+  Mrating: string;
   blockbuster: Boolean;
-  trailer: string
+  trailer: string;
   cast: [];
   description: string;
   user: string;
@@ -44,7 +43,6 @@ export interface MovieDoc extends mongoose.Document {
   Urating: number;
   url: string;
   status: MovieStatus;
- 
 }
 
 interface MovieModel extends mongoose.Model<MovieDoc> {
@@ -107,13 +105,13 @@ const MovieSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-    },    
+    },
     blockbuster: {
       type: Boolean,
       trim: true,
       required: true,
     },
-    trailer:{
+    trailer: {
       type: String,
       trim: true,
     },
@@ -121,7 +119,7 @@ const MovieSchema = new mongoose.Schema(
       type: [],
       trim: true,
     },
-    status:{
+    status: {
       type: MovieStatus,
     },
 
@@ -146,17 +144,16 @@ const MovieSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        delete ret.__v;
       },
     },
   }
 );
 
-
 MovieSchema.set('versionKey', 'version');
 MovieSchema.plugin(updateIfCurrentPlugin);
 
 MovieSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+  
   return Movie.findOne({
     _id: event.id,
     version: event.version - 1,
@@ -181,8 +178,7 @@ MovieSchema.statics.build = (attrs: MovieAttrs) => {
     director: attrs.director,
     Urating: attrs.Urating,
     url: attrs.url,
-    status: attrs.status
-  
+    status: attrs.status,
   });
 };
 

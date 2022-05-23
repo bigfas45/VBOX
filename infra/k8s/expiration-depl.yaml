@@ -15,6 +15,7 @@ spec:
       containers:
         - name: expiration
           image: vbox45/expiration
+
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

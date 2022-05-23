@@ -45,7 +45,6 @@ const UserSchema = new mongoose.Schema(
       enum: Object.values(UserType),
       default: UserType.Customer,
     },
-  
 
     status: {
       type: String,
@@ -53,7 +52,6 @@ const UserSchema = new mongoose.Schema(
       enum: Object.values(UserStatus),
       default: UserStatus.Active,
     },
-
   },
   {
     toJSON: {

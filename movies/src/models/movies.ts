@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { UserDoc } from './users';
-import {MovieStatus} from '@vboxdev/common';
+import { MovieStatus } from '@vboxdev/common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // An interface that describe the properties that are required to create a new User
@@ -12,19 +12,18 @@ interface MoviesAttrs {
   subtitle: Boolean;
   year: string;
   length: string;
-  sexual: Boolean
-  Mrating: string
+  sexual: Boolean;
+  Mrating: string;
   blockbuster: Boolean;
-  trailer: string
+  trailer: string;
   cast: [];
   description: string;
-  user: UserDoc;
+  user: string;
   director: [];
   Urating: number;
   url: string;
   status: MovieStatus;
 }
-
 
 interface MoviesModel extends mongoose.Model<MoviesDoc> {
   build(attrs: MoviesAttrs): MoviesDoc;
@@ -40,17 +39,17 @@ interface MoviesDoc extends mongoose.Document {
   subtitle: Boolean;
   year: string;
   length: string;
-  sexual: Boolean
-  Mrating: string
+  sexual: Boolean;
+  Mrating: string;
   blockbuster: Boolean;
-  trailer: string
+  trailer: string;
   cast: [];
   description: string;
-  user: UserDoc;
+  user: string;
   director: [];
   Urating: number;
   url: string;
-  status: MovieStatus
+  status: MovieStatus;
 }
 
 const MoviesSchema = new mongoose.Schema(
@@ -108,13 +107,13 @@ const MoviesSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-    },    
+    },
     blockbuster: {
       type: Boolean,
       trim: true,
       required: true,
     },
-    trailer:{
+    trailer: {
       type: String,
       trim: true,
     },
@@ -122,13 +121,13 @@ const MoviesSchema = new mongoose.Schema(
       type: [],
       trim: true,
     },
-    status:{
+    status: {
       type: MovieStatus,
     },
 
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
+      required: true,
     },
 
     Urating: {

@@ -4,7 +4,7 @@ import {
   BadRequestError,
   validateRequest,
   MovieStatus,
-  requireAuthProducer
+  requireAuthProducer,
 } from '@vboxdev/common';
 import formidable from 'formidable';
 import _ from 'lodash';
@@ -15,8 +15,7 @@ import { body } from 'express-validator';
 import { UploadedFile } from 'express-fileupload';
 import AWS from 'aws-sdk';
 import { natsWrapper } from '../nats-wrapper';
-import {MovieCreatedPublisher} from '../events/publisher/movie-created-publisher'
-
+import { MovieCreatedPublisher } from '../events/publisher/movie-created-publisher';
 
 const router = express.Router();
 
@@ -38,12 +37,12 @@ router.post(
     body('description').not().isEmpty().withMessage('description is required'),
     body('director').not().isEmpty().withMessage('director is required'),
     body('rate').not().isEmpty().withMessage('rate is required'),
-
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     // get user model doc
-    const { title,
+    const {
+      title,
       genre,
       language,
       subtitle,
@@ -57,7 +56,8 @@ router.post(
       description,
       director,
       Urating,
-      url} = req.body;
+      url,
+    } = req.body;
 
     const user = await User.findById(req.currentUser!.id);
     if (!user) {
@@ -78,14 +78,13 @@ router.post(
       trailer,
       cast,
       description,
-      user,
+      user: user.id,
       director,
       Urating,
       url,
-      status: MovieStatus.Pending
+      status: MovieStatus.Pending,
     });
     await movies.save();
-
 
     new MovieCreatedPublisher(natsWrapper.client).publish({
       id: movies.id,
@@ -102,14 +101,13 @@ router.post(
       trailer: movies.trailer,
       cast: movies.cast,
       description: movies.description,
-      user: movies.user.id,
+      user: movies.user,
       director: movies.director,
       Urating: movies.Urating,
       url: movies.url,
-      status: movies.status 
+      status: movies.status,
     });
-    res.send(movies)
-
+    res.send(movies);
   }
 );
 

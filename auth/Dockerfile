@@ -5,7 +5,7 @@ ENV CI=true
  
 WORKDIR /app
 COPY package.json ./
-RUN npm install --only=prod
+RUN npm install --force
 COPY ./ ./
  
 CMD ["npm", "start"]

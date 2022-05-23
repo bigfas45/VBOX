@@ -5,6 +5,7 @@ import { errorHandler, NotFoundError, currentUser } from '@vboxdev/common';
 import { IndexrRouter } from './routes/index';
 import { CreateNewRouter } from './routes/new';
 import { UploadRouter } from './routes/upload';
+import {movieUpdateRouter} from './routes/update'
 
 var fileupload = require('express-fileupload');
 
@@ -29,6 +30,7 @@ app.use(currentUser);
 app.use(IndexrRouter);
 app.use(CreateNewRouter);
 app.use(UploadRouter);
+app.use(movieUpdateRouter)
 
 app.all('*', async (req, res, next) => {
   throw new NotFoundError();

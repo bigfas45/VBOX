@@ -26,13 +26,17 @@ router.post(
     body('rpassword')
       .trim()
       .isLength({ min: 6, max: 20 })
-      .withMessage('Password must be between 4 and 20 chracters')
+      .withMessage('Password must contain at least 6 characters, Password must contain a number ')
       .matches(/\d/)
       .withMessage('Password must contain a number'),
+      body('fullname')
+      .trim()
+      .notEmpty().withMessage('You must supply your full name'),
     body('telephone')
       .notEmpty()
-      .matches(/^\d+$/)
+      .matches(/^[0-9]{13}$/)
       .withMessage('Invalid telephone number'),
+      body('email').notEmpty().withMessage('Email must not be empty').isEmail(),
   ],
   validateRequest,
 

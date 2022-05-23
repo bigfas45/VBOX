@@ -9,6 +9,9 @@ import { Movies } from '../models/movies';
 import { User } from '../models/users';
 import _ from 'lodash';
 import { UploadedFile } from 'express-fileupload';
+import { natsWrapper } from '../nats-wrapper';
+import { MovieUpdatedPublisher } from '../events/publisher/movie-updated-publisher ';
+
 
 const AWS = require('aws-sdk');
 
@@ -29,6 +32,10 @@ router.put(
 
     if (!req.files) {
       throw new BadRequestError('No movie selected.');
+    }
+
+    if(req.files.file){
+      console.log("Working")
     }
 
     if (!req.files.file) {
@@ -69,6 +76,32 @@ router.put(
         console.log('data', data.Location);
         movie.set({ url: data.Location });
         movie.save();
+
+
+        new MovieUpdatedPublisher(natsWrapper.client).publish({
+          id: movie.id,
+          version: movie.version,
+          title: movie.title,
+          genre: movie.genre,
+          language: movie.language,
+          subtitle: movie.subtitle,
+          year: movie.year,
+          length: movie.length,
+          sexual: movie.sexual,
+          Mrating: movie.Mrating,
+          blockbuster: movie.blockbuster,
+          trailer: movie.trailer,
+          cast: movie.cast,
+          description: movie.description,
+          user: movie.user ,
+          director: movie.director,
+          Urating: movie.Urating,
+          url: movie.url,
+          status: movie.status,
+        });
+
+
+
         res.send(movie);
       }
     }).on(

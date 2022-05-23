@@ -10,7 +10,7 @@ interface CodeAttrs {
   expiresAt: Date;
 }
 
- interface CodeDoc extends mongoose.Document {
+interface CodeDoc extends mongoose.Document {
   user: string;
   version: number;
   verification: VerificationStatus;
@@ -67,14 +67,10 @@ const CodeSchema = new mongoose.Schema(
 CodeSchema.set('versionKey', 'version');
 CodeSchema.plugin(updateIfCurrentPlugin);
 
-
 CodeSchema.statics.build = (attrs: CodeAttrs) => {
   return new Code(attrs);
 };
 
-const Code = mongoose.model<CodeDoc, CodeModel>(
-  'Code',
-  CodeSchema
-);
+const Code = mongoose.model<CodeDoc, CodeModel>('Code', CodeSchema);
 
 export { Code };
