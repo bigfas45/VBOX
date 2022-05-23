@@ -36,6 +36,17 @@ spec:
                 secretKeyRef:
                   name: send-grid-secret
                   key: SENDGRID
+            - name: PAYSTACK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paystack-secret-key
+                  key: PAYSTACK_SECRET_KEY
+            - name: PAYSTACK_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: paystack-base-url
+                  key: PAYSTACK_BASE_URL
+            
           
           
 ---
