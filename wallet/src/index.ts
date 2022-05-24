@@ -4,6 +4,7 @@ import { natsWrapper } from './nats-wrapper';
 import { MovieCreatedListener } from './events/listeners/movies-created-listener';
 import { MovieUpdatedListener } from './events/listeners/movie-updated-listener';
 import { UserCreatedListener } from './events/listeners/user-created-listener';
+import { UserUpdatedListener } from './events/listeners/user-updated-listener';
 
 
 const start = async () => {
@@ -44,6 +45,7 @@ const start = async () => {
     new MovieCreatedListener(natsWrapper.client).listen();
     new MovieUpdatedListener(natsWrapper.client).listen();
     new UserCreatedListener(natsWrapper.client).listen();
+    new UserUpdatedListener(natsWrapper.client).listen();
 
 
     await mongoose.connect(process.env.MONGO_URI, {
