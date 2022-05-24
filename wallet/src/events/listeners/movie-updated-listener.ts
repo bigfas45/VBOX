@@ -18,6 +18,7 @@ export class MovieUpdatedListener extends Listener<MoiveUpdatedEvent> {
 
 
 
+
     if (!movie) {
       throw new BadRequestError('movie not found..');
     }

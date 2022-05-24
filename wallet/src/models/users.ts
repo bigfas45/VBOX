@@ -45,7 +45,6 @@ const UserSchema = new mongoose.Schema(
       enum: Object.values(UserType),
       default: UserType.Customer,
     },
-  
 
     status: {
       type: String,
@@ -53,7 +52,6 @@ const UserSchema = new mongoose.Schema(
       enum: Object.values(UserStatus),
       default: UserStatus.Active,
     },
-
   },
   {
     toJSON: {
@@ -69,13 +67,13 @@ UserSchema.set('versionKey', 'version');
 UserSchema.plugin(updateIfCurrentPlugin);
 
 UserSchema.statics.findByEvent = (event: { id: string; version: number }) => {
-  return User.findOne({
+  return Users.findOne({
     _id: event.id,
     version: event.version - 1,
   });
 };
 UserSchema.statics.build = (attrs: UserAttrs) => {
-  return new User({
+  return new Users({
     _id: attrs.id,
     username: attrs.username,
     telephone: attrs.telephone,
@@ -85,6 +83,6 @@ UserSchema.statics.build = (attrs: UserAttrs) => {
   });
 };
 
-const User = mongoose.model<UserDoc, UserModel>('User', UserSchema);
+const Users = mongoose.model<UserDoc, UserModel>('Users', UserSchema);
 
-export { User };
+export { Users };

@@ -1,5 +1,5 @@
 import mongoose, { Types } from 'mongoose';
-import { UserDoc } from './user';
+import { UserDoc } from './users';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // An interface that describe the properties that are required to create a new User
@@ -29,8 +29,11 @@ const WalletSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 12,
+      maxlength: 60,
     },
+
+
+
 
     balance: {
       type: Number,

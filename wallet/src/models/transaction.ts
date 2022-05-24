@@ -1,5 +1,5 @@
 import mongoose, { Types } from 'mongoose';
-import { UserDoc } from './user';
+import { UserDoc } from './users';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // An interface that describe the properties that are required to create a new User
@@ -17,7 +17,6 @@ interface TransactionAttrs {
   transactionReference: string;
 }
 
-
 interface TransactionModel extends mongoose.Model<TransactionDoc> {
   build(attrs: TransactionAttrs): TransactionDoc;
 }
@@ -31,7 +30,7 @@ interface TransactionDoc extends mongoose.Document {
   extraDescription: string;
   itemId: Types.ObjectId;
   quantity: number;
-  amount: number;  
+  amount: number;
   purchaserEmail: string;
   status: string;
   transactionReference: string;
@@ -43,27 +42,26 @@ const TransactionSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 12,
     },
     user: {
-        type: Types.ObjectId,
-        ref: 'User',
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
     description: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     extraDescription: {
-        type: String,
+      type: String,
     },
     itemId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     quantity: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     amount: {
       type: Number,
@@ -73,13 +71,13 @@ const TransactionSchema = new mongoose.Schema(
       required: true,
     },
     status: {
-        type: String,
-        enum: ['pending', 'successful', 'failed'],
-        default: 'pending',
+      type: String,
+      enum: ['pending', 'successful', 'failed'],
+      default: 'pending',
     },
     transactionReference: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
   },
   {
@@ -100,6 +98,9 @@ TransactionSchema.statics.build = (attrs: TransactionAttrs) => {
   return new Transaction(attrs);
 };
 
-const Transaction = mongoose.model<TransactionDoc, TransactionModel>('Transaction', TransactionSchema);
+const Transaction = mongoose.model<TransactionDoc, TransactionModel>(
+  'Transaction',
+  TransactionSchema
+);
 
 export { Transaction };

@@ -153,7 +153,6 @@ MovieSchema.set('versionKey', 'version');
 MovieSchema.plugin(updateIfCurrentPlugin);
 
 MovieSchema.statics.findByEvent = (event: { id: string; version: number }) => {
-  
   return Movie.findOne({
     _id: event.id,
     version: event.version - 1,

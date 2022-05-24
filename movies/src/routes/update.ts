@@ -108,7 +108,9 @@ router.put(
 
     await movie.save();
 
-    new MovieUpdatedPublisher(natsWrapper.client).publish({
+    
+
+    await  new MovieUpdatedPublisher(natsWrapper.client).publish({
       id: movie.id,
       version: movie.version,
       title: movie.title,
@@ -123,14 +125,14 @@ router.put(
       trailer: movie.trailer,
       cast: movie.cast,
       description: movie.description,
-      user: user.id ,
+      user: user.id,
       director: movie.director,
       Urating: movie.Urating,
       url: movie.url,
       status: movie.status,
     });
 
-    res.send(movie);
+      res.send(movie);
   }
 );
 

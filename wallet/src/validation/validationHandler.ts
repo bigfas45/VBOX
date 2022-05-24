@@ -14,6 +14,7 @@ export const validatorHandler = (req: Request, res: Response, next: NextFunction
 
         next();
     } catch (error) {
+        console.log(error)
         throw new BadRequestError('Something went wrong');
     }
 };

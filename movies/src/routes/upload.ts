@@ -12,7 +12,6 @@ import { UploadedFile } from 'express-fileupload';
 import { natsWrapper } from '../nats-wrapper';
 import { MovieUpdatedPublisher } from '../events/publisher/movie-updated-publisher ';
 
-
 const AWS = require('aws-sdk');
 
 const router = express.Router();
@@ -22,7 +21,7 @@ router.put(
   requireAuth,
   requireAuthProducer,
   async (req: Request, res: Response) => {
-    console.log("upload")
+    console.log('upload');
     const movieId = req.params.movieId;
 
     const movie = await Movies.findById(movieId);
@@ -34,8 +33,8 @@ router.put(
       throw new BadRequestError('No movie selected.');
     }
 
-    if(req.files.file){
-      console.log("Working")
+    if (req.files.file) {
+      console.log('Working');
     }
 
     if (!req.files.file) {
@@ -49,7 +48,6 @@ router.put(
     //     'only mp4 video allowed for upload'
     //   );
     // }
-    
 
     // Configure client for use with Spaces
     const spacesEndpoint = new AWS.Endpoint('sfo3.digitaloceanspaces.com');
@@ -69,16 +67,16 @@ router.put(
 
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
-    s3.upload(params, options, function (err: any, data: any) {
+    s3.upload(params, options, async function (err: any, data: any) {
       if (err) {
         console.log(err, err.stack);
       } else {
         console.log('data', data.Location);
         movie.set({ url: data.Location });
-        movie.save();
 
+        await movie.save();
 
-        new MovieUpdatedPublisher(natsWrapper.client).publish({
+      await  new MovieUpdatedPublisher(natsWrapper.client).publish({
           id: movie.id,
           version: movie.version,
           title: movie.title,
@@ -93,14 +91,12 @@ router.put(
           trailer: movie.trailer,
           cast: movie.cast,
           description: movie.description,
-          user: movie.user ,
+          user: movie.user,
           director: movie.director,
           Urating: movie.Urating,
           url: movie.url,
           status: movie.status,
         });
-
-
 
         res.send(movie);
       }
@@ -117,7 +113,6 @@ router.put(
         );
       }
     );
-   
   }
 );
 

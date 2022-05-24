@@ -1,24 +1,22 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, UserCreatedEvent, UserType } from '@vboxdev/common';
-import { User } from '../../models/user';
+import {
+  Subjects,
+  Listener,
+  UserCreatedEvent,
+  UserType,
+} from '@vboxdev/common';
+import { Users } from '../../models/users';
 import { queueGroupName } from './queue-group-name';
 import { WalletService } from '../../services/wallet';
-
 
 export class UserCreatedListener extends Listener<UserCreatedEvent> {
   subject: Subjects.UserCreated = Subjects.UserCreated;
   queueGroupName = queueGroupName;
 
   async onMessage(data: UserCreatedEvent['data'], msg: Message) {
-    const {
-      id,
-      username,
-      telephone,
-      email,
-      userType,
-      status,
-    } = data;
-    const user = User.build({
+    const { id, username, telephone, email, userType, status } = data;
+
+    const userss = Users.build({
       id,
       username,
       telephone,
@@ -26,9 +24,9 @@ export class UserCreatedListener extends Listener<UserCreatedEvent> {
       userType,
       status,
     });
-    await user.save();
+    await userss.save();
 
-    await WalletService.create(user.id, userType, telephone.toString());
+     await WalletService.create(userss.id, userType, telephone.toString());
     msg.ack();
   }
 }
