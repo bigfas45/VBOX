@@ -5,7 +5,7 @@ export class TransactionService {
     static async getAll(userId: string, walletNumber: string, sortingOptions: any) {
         const transactions = await Transaction.find(
             {
-                user: Types.ObjectId(userId),
+                user: new Types.ObjectId(userId),
                 walletNumber,
             },
             sortingOptions,

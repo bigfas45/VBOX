@@ -10,7 +10,6 @@ interface WalletAttrs {
   user: mongoose.Types.ObjectId;
 }
 
-
 interface WalletModel extends mongoose.Model<WalletDoc> {
   build(attrs: WalletAttrs): WalletDoc;
 }
@@ -18,8 +17,9 @@ interface WalletModel extends mongoose.Model<WalletDoc> {
 // An interface that describes the properties that a user document has
 
 interface WalletDoc extends mongoose.Document<Types.ObjectId> {
+  version: number;
   walletNumber: string;
-  balance: number;  
+  balance: number;
   user: mongoose.Types.ObjectId;
 }
 
@@ -29,11 +29,7 @@ const WalletSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 60,
     },
-
-
-
 
     balance: {
       type: Number,

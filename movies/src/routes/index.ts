@@ -7,6 +7,7 @@ import {
 } from '@vboxdev/common';
 import { Movies } from '../models/movies';
 import { User } from '../models/users';
+import { Transaction } from '../models/transaction';
 import _ from 'lodash';
 import fs from 'fs';
 import { UploadedFile } from 'express-fileupload';
@@ -21,10 +22,9 @@ router.get(
   requireAuth,
   requireAuthProducer,
   async (req: Request, res: Response) => {
+    const movies = await Transaction.find({});
 
-    const movies = await Movies.find({})
-    
-    res.send(movies)
+    res.send(movies);
   }
 );
 

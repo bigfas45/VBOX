@@ -4,6 +4,8 @@ import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { UserCreatedListener } from './events/listeners/user-created-listener';
 import { UserUpdatedListener } from './events/listeners/user-updated-listener';
+import { TransactionCreatedListener } from './events/listeners/transaction-created-listener';
+import { WalletCreatedListener } from './events/listeners/wallet-created-listener';
 
 const start = async () => {
   console.log('Starting.......................');
@@ -39,6 +41,8 @@ const start = async () => {
 
     new UserCreatedListener(natsWrapper.client).listen();
     new UserUpdatedListener(natsWrapper.client).listen();
+    new TransactionCreatedListener(natsWrapper.client).listen();
+    new WalletCreatedListener(natsWrapper.client).listen();
 
     console.log(process.env.MONGO_URI);
 

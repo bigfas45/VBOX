@@ -14,23 +14,12 @@ export class UserUpdatedListener extends Listener<UserUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: UserUpdatedEvent['data'], msg: Message) {
-    
-
     const user = await User.findByEvent(data);
-
-   
 
     if (!user) {
       throw new BadRequestError('user not found..');
     }
-    const {
-      id,
-      username,
-      telephone,
-      email,
-      userType,
-      status,
-    } = data;
+    const { id, username, telephone, email, userType, status } = data;
 
     user.set({
       id,
