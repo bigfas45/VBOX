@@ -53,7 +53,7 @@ router.post('/api/wallet/payments/webhook', async function (req, res) {
         payload: req.body,
         type: 'transaction',
       });
-      throw new BadRequestError('No hash provided');
+      return res.status(401).json({ message: 'No hash provided', status: 'failed'});
     }
 
     if (hash !== req.headers['x-paystack-signature']) {
@@ -62,7 +62,7 @@ router.post('/api/wallet/payments/webhook', async function (req, res) {
         payload: req.body,
         type: 'transaction',
       });
-      throw new BadRequestError('Invalid hash provided');
+      return res.status(401).json({ message: 'Invalid hash provided', status: 'failed'});
     }
 
     const { status: paymentStatus, id, reference, customer } = req.body.data;
@@ -86,6 +86,7 @@ router.post('/api/wallet/payments/webhook', async function (req, res) {
 
     return res.status(200).json({ status: 'success', message: 'Okay' });
   } catch (error) {
+      console.log(error)
     throw new BadRequestError('Something went wrong');
   }
 });

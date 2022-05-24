@@ -4,6 +4,7 @@ import { UserType } from '@vboxdev/common';
 import { Wallet } from '../models/wallet';
 import { Movie } from '../models/movies';
 import { Transaction } from '../models/transaction';
+import { Log } from '../models/log';
 import { IPaymentDetails, IMoviePaymentDetails } from '../types/types';
 
 const paystackBaseURL = process.env.PAYSTACK_BASE_URL;
