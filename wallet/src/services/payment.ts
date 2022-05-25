@@ -75,7 +75,7 @@ export class PaymentService {
       quantity: parsedQuantity,
     });
 
-    new TransactionCreatedPublisher(natsWrapper.client).publish({
+    await new TransactionCreatedPublisher(natsWrapper.client).publish({
       id: transaction.id,
       version: transaction.version,
       walletNumber: transaction.walletNumber,
@@ -114,36 +114,32 @@ export class PaymentService {
       };
     }
 
-    const updatedTransaction = await Transaction.findOneAndUpdate(
-      { transactionReference },
-      { $set: { status, meta: JSON.stringify(payload) } },
-      { new: true }
-    );
-
-    if (!updatedTransaction) {
-      throw new NotFoundError();
+    if (status) {
+      transaction.set({ status });
     }
+
+    await transaction.save();
 
     // update transaction publisher
 
-    new TransactionUpdatedPublisher(natsWrapper.client).publish({
-      id: updatedTransaction.id,
-      version: updatedTransaction.version,
-      walletNumber: updatedTransaction.walletNumber,
-      user: new mongoose.Types.ObjectId(updatedTransaction.user),
-      itemId: new mongoose.Types.ObjectId(updatedTransaction.itemId),
-      purchaserEmail: updatedTransaction.purchaserEmail,
-      description: updatedTransaction.description,
-      extraDescription: updatedTransaction.extraDescription,
-      transactionReference: updatedTransaction.transactionReference,
-      amount: updatedTransaction.amount,
-      status: updatedTransaction.status,
-      quantity: updatedTransaction.quantity,
+    await new TransactionUpdatedPublisher(natsWrapper.client).publish({
+      id: transaction.id,
+      version: transaction.version,
+      walletNumber: transaction.walletNumber,
+      user: new mongoose.Types.ObjectId(transaction.user),
+      itemId: new mongoose.Types.ObjectId(transaction.itemId),
+      purchaserEmail: transaction.purchaserEmail,
+      description: transaction.description,
+      extraDescription: transaction.extraDescription,
+      transactionReference: transaction.transactionReference,
+      amount: transaction.amount,
+      status: transaction.status,
+      quantity: transaction.quantity,
     });
 
     return {
       status: 'success',
-      data: updatedTransaction,
+      data: transaction,
       message: 'Transaction updated',
     };
   }

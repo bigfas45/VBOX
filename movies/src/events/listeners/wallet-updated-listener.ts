@@ -11,13 +11,14 @@ export class WalletUpdatedListener extends Listener<WalletUpdateEvent> {
   async onMessage(data: WalletUpdateEvent['data'], msg: Message) {
 
 
+    console.log(data)
 
 
 
     const wallet = await Wallet.findByEvent(data);
 
     if (!wallet) {
-      throw new BadRequestError('user not found..');
+      throw new BadRequestError('wallet not found..');
     }
     const {
       id,

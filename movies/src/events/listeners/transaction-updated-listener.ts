@@ -16,7 +16,7 @@ export class TransactionUpdatedListener extends Listener<TransactionUpdatedEvent
     const transaction = await Transaction.findByEvent(data);
 
     if (!transaction) {
-      throw new BadRequestError('user not found..');
+      throw new BadRequestError('Transaction not found..');
     }
 
     const {
