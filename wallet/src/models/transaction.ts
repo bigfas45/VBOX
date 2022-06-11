@@ -81,17 +81,18 @@ const TransactionSchema = new mongoose.Schema(
       required: true,
     },
   },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-      },
-    },
-  }
+  { 
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
+},
 );
 
+TransactionSchema.set('toJSON', {
+  transform: (doc, ret, options) => {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
+  }
+});
 TransactionSchema.set('versionKey', 'version');
 TransactionSchema.plugin(updateIfCurrentPlugin);
 

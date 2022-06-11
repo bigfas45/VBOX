@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import { errorHandler, NotFoundError, currentUser } from '@vboxdev/common';
 import { IndexrRouter } from './routes/index';
 import { PaymentRouter } from './routes/payment';
+import { TransactionRouter } from './routes/transaction';
 
 
 
@@ -30,6 +31,7 @@ app.use(currentUser);
 
 app.use(IndexrRouter)
 app.use(PaymentRouter)
+app.use(TransactionRouter)
 
 
 

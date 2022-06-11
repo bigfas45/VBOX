@@ -66,7 +66,7 @@ export class PaymentService {
     const transaction = await Transaction.create({
       walletNumber: wallet?.walletNumber,
       user: new mongoose.Types.ObjectId(userId),
-      itemId: new mongoose.Types.ObjectId(movie.id),
+      itemId: new mongoose.Types.ObjectId(movie._id),
       purchaserEmail: refinedEmail,
       description: movie.title,
       extraDescription: movie.genre,
