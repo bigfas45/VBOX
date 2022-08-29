@@ -1,0 +1,23 @@
+<section>
+  <div class="heading-container">
+    <h2>
+      Dashboard
+    </h2>
+    <div class="my-activity">
+      <img src="../../../../assets/icons/actvitySymb.png" alt="">
+      My activity
+    </div>
+  </div>
+  <div class="contentsSum" *ngFor="let content of dashboardContentsSum">
+    <h1>{{content.value}}</h1>
+    <p>Total number of {{content.type}}</p>
+  </div>
+  <div class="dashboard-options">
+    <span routerLink= "movies" routerLinkActive="active" >Movies</span>
+    <span routerLink= "producers" routerLinkActive="active"> Producers</span>
+  </div>
+  <div class="dashboard-route">
+    <router-outlet></router-outlet>
+  </div>
+</section>
+

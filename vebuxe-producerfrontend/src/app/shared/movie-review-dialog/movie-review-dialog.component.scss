@@ -1,0 +1,119 @@
+section.review-dialog-container {
+  min-width: 400px;
+  .card {
+    display: flex;
+    flex-direction: column;
+
+
+    p {
+      margin: 0;
+    }
+    .header, .body {
+      padding: 14px;
+
+    }
+
+    &.decline-input {
+      p.top-level {
+        font-size: 14px;
+      }
+
+      .body {
+        width: 450px;
+        form {
+          height: 100%;
+
+          mat-form-field   {
+            width: 100%;
+            height: 100%;
+          }
+
+          .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-block: 16px;
+          }
+        }
+
+      }
+
+
+    }
+
+    &.decline-reason {
+      width: 450px;
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    &.success {
+      .header, .body {
+        text-align: center;
+      }
+
+       .header {
+      p.top-level {
+        font-size: 16px;
+        color:  #0EB56E ;
+      }
+    }
+    }
+
+
+    button {
+      &#done {
+        width: 100px;
+        align-self: flex-end;
+          background: linear-gradient(
+            0.25turn,
+            rgba(43, 175, 232, 0.85),
+            68%,
+            rgba(39, 159, 211, 0.95)
+          );
+          margin-right: 16px;
+          margin-block: 16px;
+          color: #fff;
+          font-size: 16px;
+          // padding: 5px 70px;
+      }
+
+      &#reason-close {
+        &:focus {
+          background-color: transparent;
+        }
+        mat-icon {
+          color: #000;
+        }
+      }
+
+      &#decline-movie {
+        width: 130px;
+        background: linear-gradient(
+          0.25turn,
+          #EB5757,
+          68%,
+          #ac4040
+        );
+        margin-right: 16px;
+        color: #fff;
+        font-size: 16px;
+        // padding: 5px 70px;
+      }
+
+      &#cancel{
+        width: 130px;
+        // padding: 5px 33px;
+        border: 1px solid rgba(92, 206, 255, 1);
+        margin-right: 16px;
+        color: #29aae2;
+        font-size: 16px;
+      }
+    }
+  }
+
+
+}

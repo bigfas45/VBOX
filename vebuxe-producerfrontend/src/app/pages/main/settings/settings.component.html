@@ -1,0 +1,90 @@
+<section class="settings-container">
+  <h2>Settings</h2>
+
+  <div class="settings-options">
+    <span routerLink="change-password" routerLinkActive="active"
+      >Change Password</span
+    >
+  </div>
+
+  <div class="body">
+    <form [formGroup]="passwordChangeForm" (ngSubmit)="changePassword($event)">
+      <div class="form-group">
+        <div class="input currentPass">
+          <mat-form-field appearance="outline" id="currentPass ">
+            <mat-label>Current Password</mat-label>
+            <input
+              matInput
+              [type]="currentPassVisibility"
+              placeholder="Enter Current Password"
+              formControlName="currentPass"
+            />
+            <mat-error
+              *ngIf="passwordChangeForm.get('currentPass').hasError('required')"
+            >
+              Please enter current password
+            </mat-error>
+          </mat-form-field>
+
+          <a (click)="onVisibilityChange('currentPass')">{{
+            currentPassVisibility === "password" ? "show" : "hide"
+          }}</a>
+        </div>
+
+        <div class="input newPass">
+          <mat-form-field appearance="outline" id="newPass">
+            <mat-label>New Password</mat-label>
+            <input
+              matInput
+              [type]="newPassVisibility"
+              placeholder="Enter New Password"
+              formControlName="newPass"
+            />
+            <mat-error
+              *ngIf="passwordChangeForm.get('newPass').hasError('required')"
+            >
+              Please enter new password
+            </mat-error>
+          </mat-form-field>
+          <a (click)="onVisibilityChange('newPass')">{{
+            newPassVisibility === "password" ? "show" : "hide"
+          }}</a>
+        </div>
+
+        <div class="input confirmPass">
+          <mat-form-field appearance="outline" id="confirmPass">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              [type]="confirmPassVisibility"
+              placeholder="Confirm Password"
+              formControlName="confirmPass"
+            />
+            <mat-error
+              *ngIf="passwordChangeForm.get('confirmPass').hasError('required')"
+            >
+              Please re-enter new password
+            </mat-error>
+            <small
+              *ngIf="
+               ( passwordChangeForm.get('newPass').value != '' &&
+                passwordChangeForm.get('confirmPass').value != '') &&
+                passwordChangeForm.get('newPass').value !=
+                  passwordChangeForm.get('confirmPass').value && formSubmitted === true
+              "
+            >
+              Passwords do not match, please check values and retry
+            </small>
+          </mat-form-field>
+          <a (click)="onVisibilityChange('confirmPass')">{{
+            confirmPassVisibility === "password" ? "show" : "hide"
+          }}</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button mat-button id="change" type="submit">Change</button>
+      </div>
+    </form>
+  </div>
+</section>

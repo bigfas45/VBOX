@@ -1,0 +1,44 @@
+section {
+  height: 70px;
+  width: 100vw;
+  padding: 0 40px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    h3, h4 {
+      margin: 0
+    }
+&.Reviewer {
+  h4 {
+    color: #F2994A;
+    background-color: rgba(242, 153, 74, 0.1);
+  }
+}
+&.Supervisor {
+  h4 {
+    color: rgb(242, 201, 76);
+    background-color: rgba(242, 201, 76, 0.1);
+  }
+}
+&.Admin{
+  h4 {
+    color: rgb(187, 107, 217);
+    background-color: rgba(187, 107, 217, 0.1);
+  }
+}
+    h4 {
+      padding: 2px;
+
+      border-radius: 5px;
+      width: 73px;
+      text-align: center;
+
+    }
+  }
+
+}

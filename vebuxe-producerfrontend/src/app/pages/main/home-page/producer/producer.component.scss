@@ -1,0 +1,309 @@
+section.producer-container {
+  padding: 24px 100px;
+
+  .card {
+    background-color: #fff;
+    border-radius: 5px;
+
+    a {
+      color: #29AAE2;
+      border-bottom: 1px solid #29AAE2;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .header, .body {
+      padding: 16px;
+    }
+
+    &.producer-details-card {
+      .header {
+        display: flex;
+        font-size: 16px;
+        justify-content: space-between;
+
+
+
+
+      }
+
+      .body {
+        p {
+          margin: 0;
+        }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .body-content {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    &.wallet {
+      margin-bottom: 20px;
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        .text-items {
+          p:nth-child(1) {
+            // font-size: 16px;
+            display: inline-block;
+            margin-right: 10px;
+          }
+          p:nth-child(2) {
+            display: inline-block;
+            color: #1991BB;
+            font-size: 12px;
+          }
+        }
+      }
+      .body {
+        text-align: center;
+        p:nth-child(1) {
+          color: #BDBDBD;
+          margin-bottom: 16px;
+        }
+        h1 {
+          // font-weight: 700px;
+        }
+      }
+    }
+
+    &.bank-details {
+      margin-bottom: 20px;
+      .header {
+        display: flex;
+        justify-content: space-between;
+      }
+      .body {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .bank-details {
+          margin-bottom: 20px;
+
+          p:nth-child(1) {
+            color: #BDBDBD;
+          }
+        }
+      }
+    }
+
+     .table-heading {
+        width: 100%;
+        display: flex;
+        gap: 32px;
+        color: #616e88;
+        span {
+          padding: 19px 19px;
+          cursor: pointer;
+          &.active {
+            color: #29AAE2;
+            border-bottom: solid 3px #29AAE2;
+          }
+
+        }
+      }
+
+    &.transactions {
+
+
+      .body {
+        background-color: #fafafa;
+        .search-area {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 450px;
+
+          &.withdrawn {
+            // justify-content: flex-end;
+
+            mat-form-field {
+              // margin-right: 16px;
+              width: 200px;
+            }
+          }
+
+
+
+
+          #search {
+            mat-icon {
+              position: absolute;
+              right: 1%;
+              top: 0;
+            }
+          }
+
+
+        }
+
+        table {
+          width: 100%;
+          background-color: unset;
+
+          tr.mat-header-row {
+            height: unset ;
+          }
+
+
+          tr.mat-row {
+            background-color: #fff;
+          }
+
+          .mat-row{
+            // background-color: #fff;
+            border-radius: 5px !important;
+          }
+
+          .mat-row .mat-cell, .header th {
+            border-bottom: 1px solid transparent;
+            border-top: 1px solid transparent;
+            padding: 5px 10px;
+          }
+        }
+      }
+    }
+
+    &.uploaded-movies {
+
+      .body {
+        .movie-list {
+          width: 100%;
+          .movie {
+            width: 100%;
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            grid-column-gap: 10px;
+            padding-block: 10px;
+            border-bottom: 1px dashed #E0E0E0 ;
+            .uploaded-image {
+              width: 120px;
+              height: 100px;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit:   cover;
+              }
+            }
+
+            .movie-info {
+              width: 100%;
+
+              strong {
+                font-size: 18px;
+                color: #1991BB;
+              }
+
+              .stars {
+                display: flex;
+                width: 100%;
+                margin-block: 12px;
+
+                .star {
+                  width: 15px;
+                  margin-right: 6px;
+                }
+              }
+
+              .rating {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .rate {
+                  display: flex;
+                  margin-right: 12px;
+                  align-items: center;
+                  mat-icon {
+                    font-size: 14px;
+                    color: #4F4F4F;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                  p {
+                    font-size: 14px;
+                    color: #4F4F4F;
+                  }
+                }
+
+                .lik-disl {
+                  display: flex;
+                }
+              }
+            }
+
+
+          }
+        }
+      }
+    }
+
+  }
+
+  .producer-details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+    margin-bottom: 20px;
+    .image {
+      width: 270px;
+      border-radius: 5px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit:   cover;
+      }
+    }
+  }
+
+  .main-content {
+    width: 100%;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+
+    button {
+      &#email-producer {
+          background: linear-gradient(
+            0.25turn,
+            rgba(43, 175, 232, 0.85),
+            68%,
+            rgba(39, 159, 211, 0.95)
+          );
+          width: 100%;
+          margin-block: 20px;
+          color: #fff;
+          font-size: 16px;
+          padding-block: 2px;
+
+      }
+
+      &#back {
+        padding-block: 2px;
+        border: 1px solid rgba(92, 206, 255, 1);
+        width: 100%;
+        color: #29aae2;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white !important;
+  background-color: #F2F3F5 !important;
+  border-radius: 5px;
+}

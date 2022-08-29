@@ -1,0 +1,100 @@
+.app-banner {
+  background: #0b0b0b;
+  box-shadow: inset 100px 400px 250px rgba(5, 36, 66, 0.35);
+  color: #fff;
+  padding: 60px 0;
+
+  .app-banner-content {
+    padding: 20px 60px;
+    border-bottom: solid 1px #a8a8a862;
+    .title {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 130%;
+      color: #fff;
+      margin: 2px;
+    }
+    .txt {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 110%;
+      color: #4e4c4cc4;
+    }
+    .btn-wrapper {
+      margin-top: 80px;
+      a {
+        margin: 10px;
+      }
+    }
+  }
+
+  .cta-wrapper {
+    margin-top: 40px;
+    padding-left: 220px;
+    padding-bottom: 20px;
+    .cta-title {
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 140%;
+      color: #fff;
+      margin: 2px;
+    }
+    .cta-txt {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 110%;
+      color: #e8e8e8c4;
+    }
+    .cta-button {
+      width: 210px;
+      height: 44px;
+      background: linear-gradient(180deg, #29aae2 55.21%, #1991bb 90.62%);
+      box-shadow: -5px 15px 30px rgba(41, 170, 226, 0.15);
+      border-radius: 5px;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+    }
+  }
+
+  .preview-wrapper {
+    background-image: url("../../../assets/MobileView.png");
+    background-size: cover;
+  }
+}
+
+@media (max-width: 1040px) {
+  .app-banner {
+    padding: 40px 0;
+
+    .app-banner-content {
+      padding: 20px;
+
+      .title {
+        font-size: 25px;
+        margin-bottom: 15px;
+      }
+      .btn-wrapper {
+        margin: 30px 0;
+        display: flex;
+        img {
+          width: 150px;
+          height: 50px;
+        }
+      }
+    }
+    .cta-wrapper {
+      padding: 20px;
+
+      .cta-button {
+        margin-top: 30px;
+      }
+    }
+    .preview-wrapper {
+      display: none;
+    }
+  }
+}

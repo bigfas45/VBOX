@@ -1,0 +1,85 @@
+.dashboard-home {
+  width: 100%;
+  height: calc(100vh - 60px);
+  max-height: 100vh;
+  background: #052442;
+  color: #fff;
+  padding: 40px 60px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #0b0b0b solid 1px;
+    margin-bottom: 10px;
+    p {
+      margin: 0px;
+    }
+    span {
+      color: #29aae2;
+    }
+  }
+  .dashboard-content {
+    height: 100%;
+  }
+
+  .movie-list {
+    height: 100%;
+    background-color: #fff;
+    color: #0b0b0b;
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .wallet {
+    height: 100%;
+    background-color: #fff;
+    color: #0b0b0b;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  .activities {
+    width: 100%;
+    background-color: #fff;
+    color: #0b0b0b;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .content {
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    img {
+      height: 1200px;
+      height: 120px;
+    }
+
+    .item {
+      margin: 15px 5px;
+      h2 {
+        color: #4f4f4f;
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 500;
+      }
+      p {
+        color: #828282;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+      }
+
+      button {
+        width: 210px;
+        height: 44px;
+        border: 1px solid #bdbdbd;
+        box-sizing: border-box;
+        filter: drop-shadow(5px 10px 20px rgba(41, 170, 226, 0.15));
+        border-radius: 5px;
+      }
+    }
+  }
+}

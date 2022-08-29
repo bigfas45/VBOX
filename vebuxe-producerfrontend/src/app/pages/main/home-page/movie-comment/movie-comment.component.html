@@ -1,0 +1,134 @@
+<section class="movie-comment-container">
+  <div class="card movie-comment-heading">
+    <div class="img-container">
+      <img src="../../../../../assets/images/comment-img.png" alt="" />
+    </div>
+    <div class="movie-details">
+      <strong class="top-level">Movie comments</strong>
+      <p class="top-level">Bonds of Love</p>
+      <div class="movie-comments-trend">
+        <div class="info">
+          <p>Total comments:</p>
+          <strong>1,500</strong>
+        </div>
+
+        <div class="info">
+          <p>Producer responded:</p>
+          <strong>250</strong>
+        </div>
+
+        <div class="info">
+          <p>Moderated:</p>
+          <strong>20</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card movie-comment-feed">
+    <app-comment [comments] = "parentComments"></app-comment>
+    <!-- <div
+      class="comment-feed-content"
+      *ngFor="let comment of parentComments(); let i = index"
+    >
+      <div class="comment-feed-header">
+        <div class="user-img">
+          <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+        </div>
+        <div class="header-content">
+          <div class="user-info">
+            <strong>{{ comment.userName }}</strong>
+            <button mat-button><i>Reply</i></button>
+            <button mat-button><i>Delete</i></button>
+          </div>
+          <i>{{ comment.userType }}</i>
+          <p id="comment-date">
+            Received - {{ comment.postedDate | date: "medium" }}
+          </p>
+        </div>
+      </div>
+      <div class="comment-feed-body" [innerHTML]="comment.comment"></div>
+
+      <div class="replies">
+        <div class="reply-entry">
+          <div class="reply-img">
+            <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+          </div>
+
+          <div class="reply-input">
+            <form [formGroup]="replyForm">
+              <mat-form-field appearance="outline" id="reply">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Write reply as a moderator"
+                  formControlName="reply"
+                />
+              </mat-form-field>
+            </form>
+          </div>
+        </div>
+        <div class="reply-feed">
+          <div
+          class="comment-feed-content"
+          *ngFor="let reply of childComments(comment); let i = index"
+        >
+          <div class="comment-feed-header">
+            <div class="user-img">
+              <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+            </div>
+            <div class="header-content">
+              <div class="user-info">
+                <strong>{{ reply .userName }}</strong>
+                <button mat-button><i>Reply</i></button>
+                <button mat-button><i>Delete</i></button>
+              </div>
+              <i>{{ reply .userType }}</i>
+              <p id="comment-date">
+                Received - {{ reply .postedDate | date: "medium" }}
+              </p>
+            </div>
+          </div>
+          <div class="comment-feed-body" [innerHTML]="reply.comment"></div>
+
+          <div class="replies">
+            <div class="reply-entry">
+              <div class="reply-img">
+                <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+              </div>
+
+              <div class="reply-input">
+                <form [formGroup]="replyForm">
+                  <mat-form-field appearance="outline" id="reply">
+                    <input
+                      matInput
+                      type="text"
+                      placeholder="Write reply as a moderator"
+                      formControlName="reply"
+                    />
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+            <div class="reply-feed">
+
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="card comment-input">
+    <form (ngSubmit)="sendMessage(form, $event)" #form="ngForm">
+      <div class="text-area">
+        <quill-editor ngModel name="textinput"></quill-editor>
+      </div>
+
+      <div class="movie-comment-actions">
+        <button mat-button id="back" routerLink="..">Back</button>
+        <button mat-button id="send" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+</section>

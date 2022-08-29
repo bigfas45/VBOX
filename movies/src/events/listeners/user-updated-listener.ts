@@ -1,0 +1,45 @@
+import { Message } from 'node-nats-streaming';
+import {
+  Subjects,
+  Listener,
+  UserUpdatedEvent,
+  BadRequestError,
+  NotFoundError,
+} from '@vboxdev/common';
+import { User } from '../../models/users';
+import { queueGroupName } from './queue-group-name';
+
+export class UserUpdatedListener extends Listener<UserUpdatedEvent> {
+  subject: Subjects.UserUpdated = Subjects.UserUpdated;
+  queueGroupName = queueGroupName;
+
+  async onMessage(data: UserUpdatedEvent['data'], msg: Message) {
+    console.log(data)
+    const user = await User.findByEvent(data);
+
+    // console.log(user)
+
+    try{
+      if (!user) {
+        throw new BadRequestError('user not found..');
+      }
+      const { id, username, telephone, email, userType, status } = data;
+  
+      user.set({
+        id,
+        username,
+        telephone,
+        email,
+        userType,
+        status,
+      });
+      await user.save();
+  
+    }catch(error){
+
+    }
+
+    
+    msg.ack();
+  }
+}

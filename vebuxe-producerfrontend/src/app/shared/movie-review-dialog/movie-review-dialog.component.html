@@ -1,0 +1,69 @@
+<section class="review-dialog-container">
+  <div *ngIf="success == true" class="card success">
+    <div class="header">
+      <p class="top-level">Successful!</p>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="body">
+      <p>
+        {{ successMessage }}
+      </p>
+    </div>
+    <button mat-button id="done" (click)="closeDialog()">Done</button>
+  </div>
+
+  <div *ngIf="declineComment == true" class="card decline-input">
+    <div class="header">
+      <p class="top-level">
+        Why are you declining this movie? Give reasons below
+      </p>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="body">
+      <form
+        class="example-form"
+        (ngSubmit)="reasonSubmitted(reasonForm)"
+        #reasonForm="ngForm"
+      >
+        <mat-form-field class="example-full-width" appearance="outline">
+          <!-- <mat-label>Email</mat-label> -->
+          <textarea
+            matInput
+            ngModel
+            name="decline-reason"
+            placeholder="Type your message here..."
+          >
+          </textarea>
+        </mat-form-field>
+        <div class="actions">
+          <button mat-button id="cancel" (click)="closeDialog()" type="button">
+            Cancel
+          </button>
+          <button mat-button id="decline-movie" type="submit">
+            Decline Movie
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div *ngIf="reason=== true" class="card decline-reason">
+    <div class="header">
+      <p class="top-level">Reason for declining this movie</p>
+      <button mat-icon-button id="reason-close"  aria-label="close button" (click)="closeDialog()">
+        <mat-icon>close </mat-icon>
+      </button>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="body">
+      <p>
+        {{ declineReason }}
+      </p>
+    </div>
+    <button mat-button id="done" (click)="closeDialog()">Okay</button>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+<section class="trailer-container">
+  <button mat-fab  aria-label="close button" (click)="closeDialog()">
+    <mat-icon>close </mat-icon>
+  </button>
+  <app-videoplayer
+  [options]="{
+    fill: true,
+    muted: false,
+    poster: '../../../../../assets/images/bonds-of-love.png',
+    controls: true,
+    sources: [
+      {
+        src: trailerSource,
+        type: 'video/mp4'
+      }
+    ]
+  }"
+></app-videoplayer>
+</section>

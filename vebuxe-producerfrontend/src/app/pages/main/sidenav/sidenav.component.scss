@@ -1,0 +1,62 @@
+.sidenav {
+  mat-list-option{
+    margin-bottom: 24px;
+
+    .nav-text {
+      display: grid;
+      grid-template-columns: 30px 100px;
+      margin:0 auto ;
+      width: 150px;
+      align-items: center;
+      justify-content: space-between;
+      text-align: start;
+      h4 {
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+      img{
+        margin-right: 24px;
+        // filter: invert(57%) sepia(94%) saturate(1426%) hue-rotate(165deg) brightness(94%) contrast(88%);
+        //
+        // color: #fff;
+        width: 24px;
+        &.filtered {
+          filter:  brightness(0) invert(1);
+        }
+      }
+    }
+  }
+
+  .listoption {
+    &.active {
+      background-color: #29AAE2;
+    color: #fff;
+
+      img{
+
+          filter:  brightness(0) invert(1);
+
+      }
+    }
+
+  }
+
+
+
+
+  // .mat-list-single-selected-option {
+  //   background-color: #29AAE2;
+  //   color: #fff;
+
+  // }
+
+  .mat-list-base {
+    padding: 0;
+    margin-top:24px;
+    width: 100%
+  }
+
+  .mat-list-text {
+    // background-color: red !important;
+  }
+}

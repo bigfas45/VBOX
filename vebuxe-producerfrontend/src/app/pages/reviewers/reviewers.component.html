@@ -1,0 +1,116 @@
+<section class="reviewers-container">
+  <div class="reviewers-heading">
+    <h2>Reviewers</h2>
+  </div>
+  <div class="reviewers-summary" *ngFor="let content of reviwersSummary">
+    <h1>{{ content.value }}</h1>
+    <p>{{ content.item }}</p>
+  </div>
+  <form class="actions-area">
+    <mat-form-field appearance="legacy">
+      <mat-label>Search by name</mat-label>
+
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Enter Name"
+        #input
+      />
+      <mat-icon>search</mat-icon>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button id="add" type="button">
+        <img src="../../../../assets/icons/plus.png" alt="" />
+        Add new
+      </button>
+      <button mat-button id="activity" type="button">
+        <img src="../../../../assets/icons/actvitySymb.png" alt="" />
+        User activity
+      </button>
+      <button mat-button id="edit" type="button">
+        <img src="../../../../assets/icons/edit.png" alt="" />
+        Edit user
+      </button>
+      <button mat-button id="remove" type="button">
+        <img src="../../../../assets/icons/trash.png" alt="" />
+        Remove user
+      </button>
+    </div>
+  </form>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+
+    'id',
+    'fullname',
+    'address',
+    'phone',
+    'email',
+    'role',
+  ];
+
+   <!-- Checkbox Column -->
+   <ng-container matColumnDef="checkbox">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        class="example-margin"
+        [checked]="allChecked"
+        (change)="setAll($event.checked)"
+      >
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      <mat-checkbox
+        (ngModelChange)="updateSelectedStatus()"
+        [(ngModel)]="element.selected"
+      >
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+    <!-- Fullname Column -->
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef> FULL NAME </th>
+      <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
+    </ng-container>
+
+    <!-- Address column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> CONTACT ADDRESS </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> PHONE NUMBER </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Role</th>
+      <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="7">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[6, 12, 18]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</section>

@@ -1,0 +1,42 @@
+.movies-wrapper {
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: #052442;
+  padding: 20px;
+
+  .movies-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 22px;
+    margin-bottom: 15px;
+    h2 {
+      color: #fff;
+    }
+    .pagination {
+      .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
+        color: #fff;
+      }
+    }
+  }
+  .movie-preview {
+    width: 346px;
+    height: 200px;
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+
+    .movie-views {
+      display: flex;
+      justify-content: space-between;
+    }
+    .movie-likes {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

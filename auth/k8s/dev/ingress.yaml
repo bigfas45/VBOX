@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: auth-service-ingress
+  namespace: eks-dev
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    ngress.kubernetes.io/rewrite-target: /$1
+    #cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    #kubernetes.io/tls-acme: "true"
+
+spec:
+  rules:
+    - host: vebuxe.com
+      http:
+        paths:
+          - path: /api/auth/*
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 80

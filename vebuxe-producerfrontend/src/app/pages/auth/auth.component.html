@@ -1,0 +1,87 @@
+<section class="auth-page">
+  <div class="left-section"></div>
+  <div class="right-section">
+    <img src="../../../assets/images/Logo.png" alt="vebuxe logo">
+    <h1>Welcome back</h1>
+    <h4 *ngIf="loginStep == 0">Log in to access your admin page securely</h4>
+    <h4 *ngIf="loginStep == 1">Enter OTP sent to your phone number 080******23 to login</h4>
+    <mat-divider></mat-divider>
+    <form
+    [formGroup] ="loginForm" (ngSubmit) = "loginFormSubmit($event)" *ngIf="loginStep == 0">
+    <div class="form-group">
+        <mat-form-field
+            appearance="outline"
+            id = 'userEmail'>
+            <mat-label>Email Address</mat-label>
+            <input
+            matInput
+            type = "email"
+            placeholder="Enter Mail"
+            formControlName = "userEmail"
+            >
+            <mat-error *ngIf="loginForm.get('userEmail').hasError('pattern')">
+              Please enter a valid email address
+            </mat-error>
+        </mat-form-field>
+        <div class="userPassword">
+            <mat-form-field
+                appearance="outline"
+                id = 'userPassword'>
+                <mat-label>Password</mat-label>
+                <input
+                   matInput
+                   [type]= "visibilityStatus "
+                   placeholder="Password"
+                   formControlName = "userPassword"
+                   >
+            </mat-form-field>
+            <a (click) = "visibilityChange()" id="show">show</a>
+        </div>
+      </div>
+    <mat-checkbox formControlName="userRemember">Remember Me</mat-checkbox>
+      <div class="actions">
+        <button
+        mat-raised-button
+        color="primary"
+        id="login"
+        type="submit"
+        [disabled]="loginForm.invalid"
+        [ngClass]="{'invalid': loginForm.invalid}"
+        >Log In</button>
+        <a id="forgot-pass"> Forgot password?</a>
+      </div>
+
+</form>
+
+<form
+     (ngSubmit) = "otpSubmit(otpForm)" #otpForm = ngForm *ngIf="loginStep == 1">
+    <div class="form-group">
+      <mat-form-field id="OTP" appearance="outline">
+        <mat-label>OTP</mat-label>
+        <input
+          matInput
+          placeholder="Enter OTP"
+          ngModel
+          name="otp"
+          type ="text"
+          required
+          minlength="6"
+          maxlength="6"
+          pattern="[0-9]*"
+          >
+      </mat-form-field>
+      </div>
+      <div class="actions">
+        <button
+        mat-raised-button
+        color="primary"
+        id="login"
+        type="submit"
+        [disabled]="otpForm.invalid"
+        [ngClass]="{'invalid': otpForm.invalid}"
+        >Log In</button>
+      </div>
+
+</form>
+  </div>
+</section>

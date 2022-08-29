@@ -1,0 +1,99 @@
+<div
+      class="comment-feed-content"
+      *ngFor="let comment of comments; let i = index"
+    >
+      <div class="comment-feed-header">
+        <div class="user-img">
+          <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+        </div>
+        <div class="header-content">
+          <div class="user-info">
+            <strong>{{ comment.userName }}</strong>
+            <button mat-button (click)="replyComment(comment)"><i>Reply</i></button>
+            <button mat-button><i>Delete</i></button>
+          </div>
+          <i>{{ comment.userType }}</i>
+          <p id="comment-date">
+            Received - {{ comment.postedDate | date: "medium" }}
+          </p>
+        </div>
+      </div>
+      <div class="comment-feed-body" [innerHTML]="comment.comment"></div>
+
+      <div class="replies">
+        <div class="reply-entry" [hidden]="activeComment !== comment.commentId">
+          <div class="reply-img">
+            <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+          </div>
+
+          <div class="reply-input">
+            <form [formGroup]="replyForm">
+              <mat-form-field appearance="outline" id="reply">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Write reply as a moderator"
+                  formControlName="reply"
+                  [(ngModel)]="replyMessage"
+                  (keydown) = "sendReply($event)"
+                  [autofocus] = "activeComment === comment"
+                  #replyInput
+                />
+              </mat-form-field>
+            </form>
+          </div>
+        </div>
+
+        <div class="replies-feed">
+          <app-comment  [comments] = "sortChildrenComments(comment)"></app-comment>
+        </div>
+        <!-- <div class="reply-feed">
+          <div
+          class="comment-feed-content"
+          *ngFor="let reply of childComments(comment); let i = index"
+        >
+          <div class="comment-feed-header">
+            <div class="user-img">
+              <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+            </div>
+            <div class="header-content">
+              <div class="user-info">
+                <strong>{{ reply .userName }}</strong>
+                <button mat-button><i>Reply</i></button>
+                <button mat-button><i>Delete</i></button>
+              </div>
+              <i>{{ reply .userType }}</i>
+              <p id="comment-date">
+                Received - {{ reply .postedDate | date: "medium" }}
+              </p>
+            </div>
+          </div>
+          <div class="comment-feed-body" [innerHTML]="reply.comment"></div>
+
+          <div class="replies">
+            <div class="reply-entry">
+              <div class="reply-img">
+                <img [src]="'../../../../../assets/images/' + comment.image" alt="" />
+              </div>
+
+              <div class="reply-input">
+                <form [formGroup]="replyForm">
+                  <mat-form-field appearance="outline" id="reply">
+                    <input
+                      matInput
+                      type="text"
+                      placeholder="Write reply as a moderator"
+                      formControlName="reply"
+                    />
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+            <div class="reply-feed">
+
+            </div>
+          </div>
+        </div>
+        </div> -->
+      </div>
+    </div>

@@ -1,0 +1,80 @@
+.producer-details-container {
+  width: 450px;
+  .producer-details-form{
+    .header, .body {
+      padding: 16px;
+   }
+
+   form {
+    .form-group {
+
+      .input {
+        margin-bottom: 24px;
+      }
+
+      .inline-elements {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        // margin-bottom: 24px;
+
+        .input {
+
+        }
+      }
+
+      .input {
+        width: 100%;
+        mat-form-field {
+          width: 100%;
+          height: 52px;
+          font-size: 14px;
+        }
+      }
+
+
+     }
+
+    .actions {
+      margin-block: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      &#change {
+          background: linear-gradient(
+            0.25turn,
+            rgba(43, 175, 232, 0.85),
+            68%,
+            rgba(39, 159, 211, 0.95)
+          );
+          color: #fff;
+
+      }
+
+      &#cancel {
+        border: 1px solid rgba(92, 206, 255, 1);
+        color: #29aae2;
+        font-size: 16px;
+        margin-right: 16px;
+      }
+    }
+
+
+   }
+  }
+
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  // color: white !important;
+  background-color: #F2F3F5 !important;
+  border-radius: 5px;
+  margin: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline {
+  color: red !important;
+}

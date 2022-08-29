@@ -1,0 +1,14 @@
+<section>
+  <app-header></app-header>
+  <mat-drawer-container class="sidenav-container" >
+    <mat-drawer #drawer class="sidenav-drawer" mode="side" opened="true">
+      <app-sidenav></app-sidenav>
+    </mat-drawer>
+
+    <div class="sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-container>
+</section>
+

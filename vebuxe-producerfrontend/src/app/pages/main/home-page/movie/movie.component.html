@@ -1,0 +1,275 @@
+<section class="movie-container">
+  <!-- Movie Home Page Heading -->
+  <div class="movie-heading">
+    <div class="heading-text">
+      <p>Movie title:</p>
+      <strong>Bonds of Love</strong>
+    </div>
+    <p class="review" *ngIf="movie.status == 'Pending Review'">Pending Review</p>
+    <div class="reviewers" *ngIf="movie.status != 'Pending Review'">
+      <p class="review reviewed">Reviewed by: Omolola Johnson</p>
+      <p class= "review supervised" >Supervised by: Kolawole Adeogun</p>
+    </div>
+
+  </div>
+
+  <!-- Movie Player -->
+  <div class="movie-player-container">
+    <!-- <video #target class="video-js" controls muted playsinline preload="none"></video> -->
+    <app-videoplayer
+      [options]="{
+        fill: true,
+        muted: false,
+        poster: '../../../../../assets/images/bonds-of-love.png',
+        controls: true,
+        sources: [
+          {
+            src: videoLink,
+            type: 'video/mp4'
+          }
+        ]
+      }"
+    ></app-videoplayer>
+  </div>
+  <div class="movie-body">
+    <!-- Column 1 -->
+    <div class="body-column1">
+      <!-- Movie Description -->
+      <div class="card movie-description">
+        <div class="card-heading"><p>Movie desrciption</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam odio
+            distinctio nostrum reiciendis, eaque, accusantium consectetur
+            cupiditate libero officiis quaerat, vitae fugiat. Quisquam debitis
+            doloribus aut saepe consectetur quidem deleniti nisi rem consequatur
+            consequuntur, laboriosam, voluptate quod iusto distinctio tenetur?
+          </p>
+        </div>
+      </div>
+
+      <!-- Movie Trailer Status -->
+      <div class="card slider-card movie-trailer">
+        <div class="card-heading"><p>Trailer</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <div class="slider">
+            <p>This is a Blockbuster movie</p>
+            <mat-slide-toggle
+              [(ngModel)]="isBlockbuster"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+
+          <button mat-button (click) = "openTrailer()">Watch Trailer</button>
+        </div>
+      </div>
+
+      <!-- Movie Language -->
+      <div class="card selection movie-language__subtitle">
+        <div class="card-heading"><p>Language</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <div
+            class="select"
+            *ngFor="let language of languages"
+            [ngClass]="{ selected: language.selected === true }"
+            (click)="toggleSelectStatus(language)"
+          >
+            <p>{{ language.name }}</p>
+          </div>
+        </div>
+        <div class="card-heading"><p>Subtitle</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <div
+            class="select"
+            *ngFor="let subtitle of subtitles"
+            [ngClass]="{ selected: subtitle.selected === true }"
+            (click)="toggleSelectStatus(subtitle)"
+          >
+            <p>{{ subtitle.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="body-column2">
+      <!-- Movie Cast -->
+      <div class="card movie-cast">
+        <div class="card-heading"><p>Cast</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <div class="casts" *ngFor="let cast of casts">
+            <img
+              [src]="'../../../../../assets/images/' + cast.image"
+              alt=""
+              *ngIf="cast.image != ''"
+            />
+            <img
+              [src]="'../../../../../assets/images/generic.png'"
+              alt=""
+              *ngIf="cast.image == ''"
+            />
+            <div class="cast-name">{{ cast.name }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Movie Rating -->
+      <div class="card slider-card movie-rating">
+        <div class="card-heading"><p>Movie (film) Rating</p></div>
+        <mat-divider></mat-divider>
+
+        <div class="card-body">
+          <!-- For General Audience -->
+          <div class="slider">
+            <p>G: General Audience</p>
+            <mat-slide-toggle
+              [(ngModel)]="isAudience"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+
+          <!-- Parental Guidance -->
+          <div class="slider">
+            <p>PG: Parential Guidance</p>
+            <mat-slide-toggle
+              [(ngModel)]="pgRated"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+
+          <!-- PG 13-->
+          <div class="slider">
+            <p>PG-13: Parents Cautioned</p>
+            <mat-slide-toggle
+              [(ngModel)]="pg13"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+
+          <!-- Restricted-->
+          <div class="slider">
+            <p>R: Restricted</p>
+            <mat-slide-toggle
+              [(ngModel)]="restricted"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+
+          <!-- Adult-->
+          <div class="slider">
+            <p>NC: Clearly Adult</p>
+            <mat-slide-toggle
+              [(ngModel)]="adult"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+        </div>
+
+        <div class="card-heading"><p>Movie (film) Rating</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <!-- Violent-->
+          <div class="slider">
+            <p>
+              Does movie contains extreme violence, sexsual scenes, strong
+              language etc?
+            </p>
+            <mat-slide-toggle
+              [(ngModel)]="violent"
+              color="primary"
+            ></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="body-column3">
+      <!-- Movie Genre -->
+      <div class="card selection movie-genre">
+        <div class="card-heading"><p>Genre</p></div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+          <div
+            class="select genre"
+            *ngFor="let type of genre"
+            [ngClass]="{ selected: type.selected === true }"
+            (click)="toggleSelectStatus(type)"
+          >
+            <p>{{ type.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Likes -->
+      <div class="card likes">
+        <div class="card-body">
+          <div class="element views">
+            <div class="icon">
+              <mat-icon>visibility</mat-icon>
+              <p>Views</p>
+            </div>
+            <h2>1.5M</h2>
+          </div>
+
+          <div class="element likes">
+            <div class="icon">
+              <mat-icon>thumb_up</mat-icon>
+              <p>Likes</p>
+            </div>
+            <h2>2.6k</h2>
+          </div>
+
+          <div class="element dislikes">
+            <div class="icon">
+              <mat-icon>thumb_down</mat-icon>
+              <p>Likes</p>
+            </div>
+            <h2>850</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producer Details -->
+      <div class="card basic producer-details">
+        <div class="card-body">
+          <p>View the details of the producer that posted this movie</p>
+          <button mat-button routerLink="../../producer"  >View producer details</button >
+        </div>
+      </div>
+
+      <!-- View Comments -->
+      <div class="card basic comments">
+        <div class="card-body">
+          <p>View comments on this movie, moderate where necessary</p>
+          <button mat-button id="comments" routerLink="movie-comment">
+            <div class="contents-wrapper">
+              <p>View comments</p>
+              <div class="new"><p>New</p></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="movie-actions">
+    <div >
+      <button mat-button class="back" routerLink="../../../dashboard">Back</button>
+      <button mat-button class="pending" *ngIf="movie.status == 'Pending Review'"(click) = "updateReviewStat('approve')">Send for approval</button>
+      <button mat-button class="approved" *ngIf="movie.status == 'Accepted'">Sent for approval</button>
+      <button mat-button class="approved" *ngIf="movie.status == 'Approved'">Movie approved</button>
+      <button mat-button class="declined" *ngIf="movie.status == 'Rejected'">Movie Declined</button>
+      <button mat-button class="declined" *ngIf="movie.status == 'Removed'">Movie Removed</button>
+      <button mat-button class="decline-reason" *ngIf="movie.status == 'Rejected'" (click) = "updateReviewStat('reason')">View Reason</button>
+      <button mat-button class="pending" *ngIf="movie.status == 'Removed'">Reactivate</button>
+      <button mat-button class="decline" *ngIf="movie.status == 'Pending Review'" (click) = "updateReviewStat('decline')">Decline this movie</button>
+      <button mat-button class="decline" *ngIf="movie.status == 'Approved'" (click) = "updateReviewStat('decline')">Remove this movie</button>
+    </div>
+  </div>
+</section>

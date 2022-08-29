@@ -1,0 +1,23 @@
+<div class="sidenav">
+  <mat-selection-list #listOptions [multiple]="false">
+    <!-- [selected]="option === selectedOption" -->
+    <mat-list-option
+      *ngFor="let option of navOptions; let i = index"
+      class="listoption"
+
+      [routerLink]="(option != 'Log Out' ? option : '/auth')"
+    routerLinkActive="active"
+
+    >
+    <div class="nav-text">
+      <img
+        [src]="'../../../../assets/icons/' + option + '.png'"
+        alt=""
+        [ngClass]="{ filtered: selectedOption === option }"
+      />
+      <h4>{{ option | titlecase  }}</h4>
+    </div>
+
+    </mat-list-option>
+  </mat-selection-list>
+</div>

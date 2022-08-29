@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vbox-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vbox
+  template:
+    metadata:
+      labels:
+        app: vbox
+    spec:
+      containers:
+        - name: vbox
+          image: vbox45/vbox
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vbox-srv
+spec:
+  selector:
+    app: vbox
+  ports:
+    - name: vbox
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+      
+      
+      
+      
+      
+      

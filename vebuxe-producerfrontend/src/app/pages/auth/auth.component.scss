@@ -1,0 +1,111 @@
+.auth-page {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  width: 100vw;
+  height: 100vh;
+
+  .left-section {
+    background-image: url("../../../assets/images/auth-image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .right-section {
+    padding: 16% 12%;
+
+    img {
+      margin-left: -2%;
+    }
+
+    h1,
+    h4 {
+      margin-bottom: 8px;
+    }
+
+    h4 {
+      font-weight: 400px;
+    }
+
+    .mat-divider {
+      border-top: 1px solid #05244286;
+      margin-bottom: 40px;
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+      // color: #BDBDBD !important;
+      background-color: #bdbdbd25;
+      border-radius: 5px;
+    }
+
+    ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: #1991BB;
+    }
+
+    form {
+      width: 80%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      mat-checkbox {
+        margin-bottom: 43px;
+      }
+
+      .actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      button {
+        background: linear-gradient(
+          0.25turn,
+          #5aceff,
+          68%,
+          #2bafe8,
+          95%,
+          #279fd3
+        );
+
+        &.invalid {
+          background: rgba(182, 182, 182, 0.774)
+        }
+        width: 300px;
+        margin-bottom: 24px;
+
+
+      }
+
+      .md-button.md-raised.md-primary.formPage:not(.disabledclassname) {
+        background-color: red;
+      }
+
+
+    }
+
+    .userPassword {
+      position: relative;
+    }
+
+    a {
+      font-size: 14px;
+      color: #29aae2;
+      cursor: pointer;
+
+      &#show {
+        position: absolute;
+        bottom: 13%;
+        transform: translate(-100%, -100%);
+        right: -23px;
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+section.movies-container {
+  width: 100%;
+
+  .search-area {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 34px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .selections-searches {
+      mat-form-field {
+        margin-left: 20px;
+      }
+    }
+
+      mat-form-field {
+       max-width: 500px;
+        position: relative;
+
+        &.mat-form-field-appearance-outline .mat-form-field-outline {
+          background-color: #E0E0E0;
+          border-radius: 5px;
+        }
+
+        .mat-form-field-wrapper {
+          margin-bottom: -1.34753em;
+          max-width: 200px;
+
+        }
+
+
+        mat-icon {
+          position: absolute;
+          position: absolute;
+          transform: translate(-77%, -36%);
+          right: -11%;
+          font-size: 31px;
+          color: #828282;
+      }
+
+    }
+
+
+
+  }
+
+  table {
+    width: 100%;
+    background-color: unset;
+
+    tr.mat-header-row {
+      height: unset ;
+    }
+
+    .mat-column-action {
+      display: grid;
+      grid-template-columns: 0.7fr 0.3fr;
+      align-items: center;
+      justify-content: end;
+      button {
+        border: 1px solid #29AAE2;
+        color: #29AAE2;
+        margin-right: 15px;
+        max-width: 150px;
+      }
+
+      .new {
+        padding: 1px;
+        border-radius: 8px;
+        background-color: #E6B815;
+        max-width: 45px ;
+        text-align: center;
+
+      }
+    }
+
+    .mat-row {
+      background-color: #fff;
+      border-radius: 5px !important;
+    }
+
+    .mat-row .mat-cell, .header th {
+      border-bottom: 1px solid transparent;
+      border-top: 1px solid transparent;
+      padding: 5px 10px;
+    }
+  }
+
+  .mat-paginator {
+    background-color: unset;
+  }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white !important;
+  background-color: #F2F3F5 !important;
+  border-radius: 5px;
+}

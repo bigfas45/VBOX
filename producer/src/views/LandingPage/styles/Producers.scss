@@ -1,0 +1,57 @@
+.producers {
+  background: #052442;
+  color: #fff;
+  padding-top: 40px;
+  padding-bottom: 15px;
+  .title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .producer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    .producer-card {
+      .producer-img {
+        width: 180px;
+        height: 180px;
+      }
+      .producer-name {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        color: #fff;
+        margin-top: 10px;
+      }
+      .producer-year {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+        color: #828282;
+        margin: 0;
+      }
+      .producer-movies {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: #d6d5d5;
+      }
+    }
+  }
+}
+
+@media (max-width: 1040px) {
+  .producer-wrapper {
+    flex-direction: column;
+    text-align: center;
+    .producer-card {
+      margin-top: 15px;
+      padding: 10px;
+      .producer-img {
+        width: 100%;
+      }
+    }
+  }
+}

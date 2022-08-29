@@ -1,0 +1,231 @@
+<section class="producer-details-container">
+  <div class="producer-details-form">
+    <div class="header">
+      <strong *ngIf="selectedAction === 'profile'"
+        >Edit producer details</strong
+      >
+      <strong *ngIf="selectedAction === 'bank'"
+        >Edit bank details</strong
+      >
+    </div>
+    <mat-divider></mat-divider>
+    <div class="body">
+      <form
+        [formGroup]="producerDetailsForm"
+        (ngSubmit)="changeDetails('Account', producerDetailsForm)"
+        *ngIf="selectedAction === 'profile'"
+      >
+        <div class="form-group">
+          <div class="inline-elements name">
+            <div class="input firstname">
+              <mat-form-field appearance="outline" id="firstname">
+                <!-- <mat-label>First name</mat-label> -->
+                <input
+                  matInput
+                  type="text"
+                  placeholder="First name"
+                  formControlName="firstname"
+                />
+                <mat-error
+                  *ngIf="
+                    producerDetailsForm.get('firstname').hasError('required')
+                  "
+                >
+                  Please enter first name
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="input lastname">
+              <mat-form-field appearance="outline" id="lastname">
+                <!-- <mat-label>Last name</mat-label> -->
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Last name"
+                  formControlName="lastname"
+                />
+                <mat-error
+                  *ngIf="
+                    producerDetailsForm.get('lastname').hasError('required')
+                  "
+                >
+                  Please enter last name
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="input phone">
+            <mat-form-field appearance="outline" id="phone">
+              <!-- <mat-label>Phone number</mat-label> -->
+              <input
+                matInput
+                type="text"
+                placeholder="Phone number"
+                formControlName="phone"
+                maxlength="11"
+                minlength="11"
+                pattern="[0-9]*"
+              />
+              <mat-error
+                *ngIf="producerDetailsForm.get('phone').hasError('required')"
+              >
+                Please enter a phone number
+              </mat-error>
+              <mat-error
+                *ngIf="producerDetailsForm.get('phone').hasError('minlength')"
+              >
+                Please enter a valid phone number
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="input email">
+            <mat-form-field appearance="outline" id="email">
+              <!-- <mat-label>Email</mat-label> -->
+              <input
+                matInput
+                type="email"
+                placeholder="Email Address"
+                formControlName="email"
+              />
+              <mat-error
+                *ngIf="producerDetailsForm.get('email').hasError('required')"
+              >
+                Please enter a valid mail
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="input address">
+            <mat-form-field appearance="outline" id="address">
+              <!-- <mat-label>Email</mat-label> -->
+              <input
+                matInput
+                type="text"
+                placeholder="Address"
+                formControlName="address"
+              />
+              <mat-error
+                *ngIf="producerDetailsForm.get('address').hasError('required')"
+              >
+                Please enter an address
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="inline-elements location">
+            <div class="input city">
+              <mat-form-field appearance="outline" id="city">
+                <!-- <mat-label>Email</mat-label> -->
+                <input
+                  matInput
+                  type="text"
+                  placeholder="City"
+                  formControlName="city"
+                />
+                <mat-error
+                  *ngIf="producerDetailsForm.get('city').hasError('required')"
+                >
+                  Please enter a city
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="input state">
+              <mat-form-field appearance="outline" id="state">
+                <!-- <mat-label>Email</mat-label> -->
+                <mat-select
+                  [(value)]="selectedState"
+                  name="food"
+                  formControlName="state"
+                  placeholder="Select State"
+                >
+                  <mat-option *ngFor="let state of states" [value]="state">
+                    {{ state }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="producerDetailsForm.get('state').hasError('required')"
+                >
+                  Please enter a state
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button mat-button id="cancel" type="button" mat-dialog-close>
+            Cancel
+          </button>
+          <button mat-button id="change" type="submit">Change</button>
+        </div>
+      </form>
+
+      <form *ngIf="selectedAction === 'bank'" [formGroup]="bankDetailsForm"
+      (ngSubmit)="changeDetails('Bank', bankDetailsForm)">
+
+      <div class="form-group">
+        <div class="input bank">
+          <mat-form-field appearance="outline" id="bank">
+            <!-- <mat-label>Email</mat-label> -->
+            <input
+              matInput
+              type="text"
+              placeholder="Bank"
+              formControlName="bank"
+            />
+            <mat-error
+              *ngIf="bankDetailsForm.get('bank').hasError('required')"
+            >
+              Please enter a Bank
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input account">
+          <mat-form-field appearance="outline" id="account">
+            <!-- <mat-label>Email</mat-label> -->
+            <input
+              matInput
+              type="text"
+              placeholder="Account Number"
+              formControlName="account"
+            />
+            <mat-error
+              *ngIf="bankDetailsForm.get('account').hasError('required')"
+            >
+              Please enter an Account
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input name">
+          <mat-form-field appearance="outline" id="name">
+            <!-- <mat-label>Email</mat-label> -->
+            <input
+              matInput
+              type="text"
+              placeholder="Name"
+              formControlName="name"
+            />
+            <mat-error
+              *ngIf="bankDetailsForm.get('name').hasError('required')"
+            >
+              Please enter a name
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button mat-button id="cancel" type="button" mat-dialog-close>
+          Cancel
+        </button>
+        <button mat-button id="change" type="submit">Change</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</section>

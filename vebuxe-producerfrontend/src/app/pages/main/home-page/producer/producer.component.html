@@ -1,0 +1,344 @@
+<section class="producer-container">
+  <div class="producer-details">
+    <div class="image">
+      <img
+        id="producer-image"
+        src="../../../../../assets/images/producer.png"
+        alt=""
+      />
+    </div>
+
+    <div class="card producer-details-card">
+      <div class="header">
+        <p>Producer details</p>
+        <a (click)="editDetails('profile')">Edit</a>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="body">
+        <div class="body-content" *ngFor="let producerInfo of producersInfo">
+          <p>{{ producerInfo.item }}</p>
+          <p>{{ producerInfo.value }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="main-content-column1">
+      <div class="card wallet">
+        <div class="header">
+          <div class="text-items">
+            <p>Wallet</p>
+            <p>ID: 08057393209</p>
+          </div>
+          <a>Create wallet</a>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="body">
+          <p>Balance</p>
+          <h1>N350,430.00</h1>
+        </div>
+      </div>
+
+      <div class="card bank-details">
+        <div class="header">
+          <p>Bank details</p>
+          <a (click)="editDetails('bank')">Edit</a>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="body">
+          <div class="bank-details" *ngFor="let bankDetail of bankDetails">
+            <p>{{ bankDetail.item }}</p>
+            <p>{{ bankDetail.value }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card transactions">
+        <div class="header">
+          <p>Transactions</p>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="table-heading">
+          <span
+            [ngClass]="{ active: activeTrans === 'received' }"
+            (click)="changeActiveTrans('received')"
+            >Received</span
+          >
+          <span
+            [ngClass]="{ active: activeTrans === 'withdrawn' }"
+            (click)="changeActiveTrans('withdrawn')"
+          >
+            Withdrawn</span
+          >
+        </div>
+        <mat-divider></mat-divider>
+        <div class="body">
+          <div class="recived-movies" *ngIf="activeTrans === 'received'">
+            <form class="search-area">
+              <mat-form-field appearance="outline" id="search">
+                <mat-label>Search by transacion ID</mat-label>
+
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="Ex. ium"
+                  #input
+                />
+                <mat-icon>search</mat-icon>
+              </mat-form-field>
+
+              <div class="selections-searches">
+                <mat-form-field appearance="outline">
+                  <mat-label>Status</mat-label>
+                  <mat-select (selectionChange)="statusCheck($event.value)">
+                    <mat-option
+                      *ngFor="let stat of receivedTransStatus"
+                      [value]="stat"
+                    >
+                      {{ stat }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </form>
+
+            <table
+              mat-table
+              [dataSource]="receivedTransData"
+              class="mat-elevation-z0"
+            >
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>TRANS.ID</th>
+                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+              </ng-container>
+
+              <!-- Movie Column -->
+              <ng-container matColumnDef="movie">
+                <th mat-header-cell *matHeaderCellDef>MOVIE</th>
+                <td mat-cell *matCellDef="let element">
+                  {{
+                    element.movie.length > 15
+                      ? (element.movie | slice: 0:12) + ".."
+                      : element.movie
+                  }}
+                </td>
+              </ng-container>
+
+              <!-- Amount column -->
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>AMOUNT</th>
+                <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+              </ng-container>
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>DATE</th>
+                <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>STATUS</th>
+                <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="receivedTransdisplayedColumns"
+                class="header"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: receivedTransdisplayedColumns"
+              ></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7">
+                  No data matching the filter "{{ input.value }}"
+                </td>
+              </tr>
+            </table>
+
+            <mat-paginator
+              [pageSizeOptions]="[6, 12, 18]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
+          </div>
+
+          <!-- Withdrawn Transactions -->
+          <div class="withdrawn-movies" *ngIf="activeTrans === 'withdrawn'">
+            <form class="search-area withdrawn">
+              <mat-form-field appearance="outline" class="start-date">
+                <mat-label>Enter Start Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  (dateInput)="onDateSelect('start', $event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Enter End Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker2"
+                  (dateInput)="onDateSelect('end', $event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+              </mat-form-field>
+            </form>
+
+            <table
+              mat-table
+              [dataSource]="withdrawnTransData"
+              class="mat-elevation-z0"
+            >
+              <!-- Amount Column -->
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>AMOUNT</th>
+                <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+              </ng-container>
+
+              <!-- Bank Column -->
+              <ng-container matColumnDef="bank">
+                <th mat-header-cell *matHeaderCellDef>BANK</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.bank }}
+                </td>
+              </ng-container>
+
+              <!-- Account column -->
+              <ng-container matColumnDef="account">
+                <th mat-header-cell *matHeaderCellDef>ACCOUNT NO</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.account }}
+                </td>
+              </ng-container>
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>DATE</th>
+                <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>STATUS</th>
+                <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="withdrawnTransdisplayedColumns"
+                class="header"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: withdrawnTransdisplayedColumns"
+              ></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <!-- <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7">No data matching the filter"</td>
+              </tr> -->
+            </table>
+
+            <mat-paginator
+              #withdrwanTransPaginator
+              [pageSizeOptions]="[6, 12, 18]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+      <button mat-button id="email-producer">Email Producer</button>
+      <button mat-button id="back" routerLink="../../dashboard/producers">Back</button>
+    </div>
+
+    <div class="main-content-column2">
+      <div class="card uploaded-movies">
+        <div class="header">Movies uploaded (30)</div>
+        <mat-divider></mat-divider>
+        <div class="table-heading">
+          <span
+            [ngClass]="{ active: movieuploadStatusview === 'approved' }"
+            (click)="uploadStatusView('approved')"
+            >Approved</span
+          >
+          <span
+            [ngClass]="{ active: movieuploadStatusview === 'pending' }"
+            (click)="uploadStatusView('pending')"
+          >
+            Pending</span
+          >
+          <span
+            [ngClass]="{ active: movieuploadStatusview === 'declined' }"
+            (click)="uploadStatusView('declined')"
+          >
+            Declined</span
+          >
+        </div>
+        <mat-divider></mat-divider>
+        <div class="body">
+          <div class="movie-list">
+            <div class="movie" *ngFor="let movie of moviesArraySubset">
+              <div class="uploaded-image">
+                <img
+                  src="../../../../../assets/images/uploaded-movie.png"
+                  alt=""
+                />
+              </div>
+              <div class="movie-info">
+                <strong>Love is War</strong>
+                <div class="stars">
+                  <div class="star" *ngFor="let star of starsArray">
+                    <img src="../../../../../assets/icons/star.png" alt="" />
+                  </div>
+                </div>
+                <div class="rating">
+                  <div class="rate views">
+                    <mat-icon>visibility</mat-icon>
+                    <p>1.5M Views</p>
+                  </div>
+                  <div class="lik-disl">
+                    <div class="rate likes">
+                      <mat-icon>thumb_up</mat-icon>
+                      <p>2.6k</p>
+                    </div>
+                    <div class="rate likes">
+                      <mat-icon>thumb_down</mat-icon>
+                      <p>820</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <mat-paginator
+              [length]="moviesArray.length"
+              [pageSize]="4"
+              [pageSizeOptions]="[4, 8, 12]"
+              (page)="onListPageChange($event)"
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
